@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Paxos",
+            "request": "launch",
+            "mainClass": "Paxos",
+            "projectName": "PAXOS_76d7308c"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - paxos",
             "request": "launch",
             "mainClass": "paxos",
