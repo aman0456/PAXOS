@@ -15,6 +15,7 @@ public class Paxos {
     Node<String> addNode(InetAddress ip, Integer sendPort, Integer recPort) throws IOException {
         Node<String> node = new Node<>(numNodes);
         comm.addNode(numNodes, ip, sendPort, recPort);
+        comm.numNodes++;
         numNodes++;
         return node;
     }
