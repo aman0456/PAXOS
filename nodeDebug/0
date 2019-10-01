@@ -1,0 +1,31 @@
+3:Inside Node run 0
+20:Received Prepare 21 from 2
+21:Sending Promise 21 to 2
+22:Promise sent to 2
+30:Received Prepare 21 from 1
+36:Prepare 21 rejected from 1
+37:Promise sent to 1
+54:Received Prepare 21 from 4
+55:Prepare 21 rejected from 4
+56:Promise sent to 4
+72:Received Prepare 21 from 3
+74:Prepare 21 rejected from 3
+78:Promise sent to 3
+170:Received Prepare 22 from 3
+171:Sending Promise 22 to 3
+172:Promise sent to 3
+194:Sending Accept 22 52
+205:Received Prepare 22 from 2
+206:Prepare 22 rejected from 2
+207:Promise sent to 2
+211:Received Prepare 22 from 4
+212:Prepare 22 rejected from 4
+213:Promise sent to 4
+290:Received Prepare 23 from 2
+293:Sending Promise 23 to 2 accepted 22 52
+295:Promise sent to 2
+297:Received Prepare 23 from 4
+298:Prepare 23 rejected from 4
+299:Promise sent to 4
+357:Sending Accept 23 51
+371:Sending Accept 23 51

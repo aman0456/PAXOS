@@ -1,0 +1,57 @@
+2:Inside Node run 3
+23:Sending Prepare 21
+34:Received Prepare 21 from 1
+40:Sending Promise 21 to 1
+42:Promise sent to 1
+43:Received Prepare 21 from 4
+44:Prepare 21 rejected from 4
+45:Promise sent to 4
+46:Received Prepare 21 from 2
+47:Prepare 21 rejected from 2
+48:Promise sent to 2
+67:Received Prepare 21 from 3
+68:Prepare 21 rejected from 3
+69:Promise sent to 3
+143:Sending Accept 21 50
+155:Prepare Timeout 21 52
+156:called at promise
+157:Sending Prepare 22
+160:Received Prepare 22 from 3
+162:Sending Promise 22 to 3 accepted 21 50
+163:Promise sent to 3
+179:Received Promise 8 22 22
+180:Received Promise 3 22 22
+181:Received Promise 5 22 22
+182:Received Promise 9 22 22
+183:Received Promise 0 22 22
+184:Received Promise 6 22 22
+185:Reached Majority 6 Promises 22
+186:Sending Accept-Request 22 52
+187:Sending Accept-Request 22 52
+188:Sending Accept-Request 22 52
+189:Sending Accept-Request 22 52
+190:Sending Accept-Request 22 52
+195:Sending Accept-Request 22 52
+197:Received Promise 7 22 22
+198:Sending Accept-Request 22 52
+200:Sending Accept 22 52
+201:Reached Majority Accept 7
+217:Received Promise 1 22 22
+218:Sending Accept-Request 22 52
+225:Received Prepare 22 from 2
+226:Prepare 22 rejected from 2
+227:Promise sent to 2
+244:Received Promise 2 22 22
+245:Sending Accept-Request 22 52
+250:Received Prepare 22 from 4
+252:Prepare 22 rejected from 4
+254:Promise sent to 4
+274:Received Promise 4 22 22
+276:Sending Accept-Request 22 52
+291:Received Prepare 23 from 4
+294:Sending Promise 23 to 4 accepted 22 52
+296:Promise sent to 4
+326:Received Prepare 23 from 2
+329:Prepare 23 rejected from 2
+331:Promise sent to 2
+363:Sending Accept 23 53
