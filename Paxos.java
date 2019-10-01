@@ -1,15 +1,20 @@
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Paxos {
-
+    Map<Integer, Node<String> > nodeList;
     private static Integer numNodes = 0;
+
+    Paxos(){
+        nodeList = new HashMap<>();
+    }
     Communication comm = Communication.getInstance(); // Object to send messages
-    Node<Integer, String> addNode(InetAddress ip, Integer port) throws IOException {
-        Node<Integer, String> node = new Node<>(numNodes);
-        comm.addNode(numNodes, ip, port);
+    Node<String> addNode(InetAddress ip, Integer sendPort, Integer recPort) throws IOException {
+        Node<String> node = new Node<>(numNodes);
+        comm.addNode(numNodes, ip, sendPort, recPort);
         numNodes++;
         return node;
     }
@@ -24,8 +29,8 @@ public class Paxos {
         // s1.close();
         // s2.close();
 
-        Node<Integer, String> n1=paxos.addNode(localIp,7090);
-        Node<Integer, String> n2=paxos.addNode(localIp,7100);
+        Node<String> n1=paxos.addNode(localIp, 7090, 7091);
+        Node<String> n2=paxos.addNode(localIp, 7100, 7092);
         n1.start();
         System.out.println("temp");
         n2.start();

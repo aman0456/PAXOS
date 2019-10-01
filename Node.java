@@ -6,13 +6,13 @@ import java.lang.Thread;
 /**
  * Node
  */
-public class Node<I extends Comparable<I>, V extends Comparable<V>> extends Thread {
-    ArrayList<LogEntry<I, V>> nodelog;
+public class Node< V extends Comparable<V>> extends Thread {
+    ArrayList<LogEntry<Integer, V>> nodelog;
 
     Integer nodeId; // Unique Id for each node
     Boolean isPromised; // Did it promise to anyone ?
     Boolean isAccepted;
-    I cur_id; // The Id to which it promised
+    Integer cur_id; // The Id to which it promised
     V pre_acc; // value accepted after promised
     Communication comm = Communication.getInstance(); // Object to send messages
 
@@ -22,13 +22,14 @@ public class Node<I extends Comparable<I>, V extends Comparable<V>> extends Thre
     }
 
     void debug(String str) {
-        System.out.println(str);
+        boolean a = true;
+        if(a) System.out.println(str);
     }
 
     void prepare() throws IOException {
         // Send to all prepare - id
         String prepare_msg = "prepare";
-        // I prop_id  ;                                      // ASSUME: To use to create prepare_msg
+        // Integer prop_id  ;                                      // ASSUME: To use to create prepare_msg
         ArrayList <Integer> sendnodes = new ArrayList<>();  // ASSUME:
         for(Integer i : sendnodes){
             comm.send(prepare_msg, nodeId, i);
@@ -36,7 +37,7 @@ public class Node<I extends Comparable<I>, V extends Comparable<V>> extends Thre
         }
         
     }
-    void promise(I prop_id) throws IOException {
+    void promise(Integer prop_id) throws IOException {
         // Needs <ID
         Integer rec_Nodeid = 0;                 // ASSUME: Nodeid from which the prop_id is received
         String promise_msg = "promise";
@@ -67,16 +68,16 @@ public class Node<I extends Comparable<I>, V extends Comparable<V>> extends Thre
     }
 
     // This value is set by the driver function, pre_acc
-    void accept_request(I id, V value) throws IOException {
+    void accept_request(Integer id, V value) throws IOException {
         String accept_request_msg = "accept_request";
-        // I prop_id  ;                                      // ASSUME: To use to create prepare_msg
+        // Integer prop_id  ;                                      // ASSUME: To use to create prepare_msg
         ArrayList <Integer> promisenodes = new ArrayList<>();  // ASSUME: promisenodes are stored 
         for(Integer i : promisenodes){
             comm.send(accept_request_msg, nodeId, i);
         }
     }
 
-    void accept(I id,V value) throws IOException {
+    void accept(Integer id,V value) throws IOException {
         String listner_msg = "listner";
         ArrayList <Integer> listnernodes = new ArrayList<>();  // ASSUME: promisenodes are stored 
         for(Integer i : listnernodes){
@@ -101,7 +102,7 @@ public class Node<I extends Comparable<I>, V extends Comparable<V>> extends Thre
         
         
     }
-
+ 
     // public static void main(String[] args) {
     //     Node<Integer,String> node = new Node<Integer,String>();
     //     node.debug("main called here");
