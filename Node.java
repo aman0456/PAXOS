@@ -12,8 +12,8 @@ public class Node<I extends Comparable<I>, V extends Comparable<V>> extends Thre
     Integer nodeId; // Unique Id for each node
     Boolean isPromised; // Did it promise to anyone ?
     Boolean isAccepted;
-    I cur_id; // The Id to which it promised
-    V pre_acc; // value accepted after promised
+    I curPropId; // The Id to which it promised
+    V preAcc; // value accepted after promised
     Communication comm = Communication.getInstance(); // Object to send messages
 
     Node(Integer nodeId) {
@@ -29,77 +29,72 @@ public class Node<I extends Comparable<I>, V extends Comparable<V>> extends Thre
         // Send to all prepare - id
         String prepare_msg = "prepare";
         // I prop_id  ;                                      // ASSUME: To use to create prepare_msg
-        ArrayList <Integer> sendnodes = new ArrayList<>();  // ASSUME:
-        for(Integer i : sendnodes){
-            comm.send(prepare_msg, nodeId, i);
-            debug("Sent Prepare to node " + Integer.toString(i));
-        }
-        
+        comm.sendAll(prepare_msg, nodeId);
     }
-    void promise(I prop_id) throws IOException {
+    void promise(I propId) throws IOException {
         // Needs <ID
-        Integer rec_Nodeid = 0;                 // ASSUME: Nodeid from which the prop_id is received
-        String promise_msg = "promise";
-        if(this.isPromised){
-            if(prop_id.compareTo(this.cur_id) < 0){
-                // Ignore or send NACK with cur_id 
-                comm.send_nack(rec_Nodeid);
-            } else if(prop_id.compareTo(this.cur_id) == 0){
-                    
-            } else{
-                if(isAccepted){
-                    // [Edit/Send] promise_msg with prop_id 
-                    comm.send(promise_msg, nodeId, rec_Nodeid);
-                }else{
-                    // [Send] promise_msg with prop_id 
-                    cur_id = prop_id;
-                    comm.send(promise_msg, nodeId, rec_Nodeid);
+        Integer recNodeId = 0;                 // ASSUME: Nodeid from which the propId is received
+        String promiseMsg = "promise";
+        if (this.isPromised) {
+            if (propId.compareTo(this.curPropId) <= 0){
+                // Ignore or send NACK with curPropId 
+                comm.send_nack(nodeId, recNodeId);
+            } else {
+                if (isAccepted) {
+                    // [Edit/Send] promiseMsg with propId 
+                } else {
+                    // [Send] promiseMsg without propId 
+                    curPropId = propId;
                 }
+                comm.send(promiseMsg, nodeId, recNodeId);
             }
-              
-        }else{
-            
-            // [Send] promise_msg with prop_id  
+        } else {
+            // [Send] promise_msg without prop_id  
             this.isPromised = true;
-            comm.send(promise_msg, nodeId, rec_Nodeid);
+            this.curPropId = propId;
+            comm.send(promiseMsg, nodeId, recNodeId);
         }
-        debug("Promise sent to " + Integer.toString(rec_Nodeid));
+        debug("Promise sent to " + Integer.toString(recNodeId));
     }
 
-    // This value is set by the driver function, pre_acc
+    // This value is set by the driver function, preAcc
     void accept_request(I id, V value) throws IOException {
         String accept_request_msg = "accept_request";
         // I prop_id  ;                                      // ASSUME: To use to create prepare_msg
-        ArrayList <Integer> promisenodes = new ArrayList<>();  // ASSUME: promisenodes are stored 
-        for(Integer i : promisenodes){
+        ArrayList <Integer> promiseNodes = new ArrayList<>();  // ASSUME: promiseNodes are stored 
+        for(Integer i : promiseNodes){
             comm.send(accept_request_msg, nodeId, i);
         }
     }
 
-    void accept(I id,V value) throws IOException {
-        String listner_msg = "listner";
-        ArrayList <Integer> listnernodes = new ArrayList<>();  // ASSUME: promisenodes are stored 
-        for(Integer i : listnernodes){
-            comm.send(listner_msg, nodeId, i);
+    void accept(I id, V value) throws IOException {
+        String listenerMsg = "listner";
+        Integer recNodeId = 0;                 // ASSUME: Nodeid from which the accept request is received
+        if (this.isPromised && id.compareTo(this.curPropId) <= 0) {
+        	comm.sendReject(nodeId, recNodeId);
+        } else {
+        	this.isAccepted = true;
+        	this.preAcc = value;
+        	comm.sendAll(listenerMsg, nodeId);
         }
-        // add to the log of this 
-        pre_acc = value;
-
     }
     
     @Override
     public void run() { 
         debug("Inside Node run " + nodeId);
         try {
-            comm.send("Hello Hello", nodeId, 1 - nodeId);
-            String rev = comm.receive(nodeId);
-            debug("Received : " + rev);
+            // comm.send("Hello Hello", nodeId, 1 - nodeId);
+            // String rev = comm.receive(nodeId);
+            // debug("Received : " + rev);
+            if (nodeId == 0) {
+            	prepare();
+            }
+            comm.receive(nodeId);
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
-        
     }
 
     // public static void main(String[] args) {

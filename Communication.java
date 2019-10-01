@@ -14,6 +14,7 @@ import java.util.Map.Entry;
 // Make a singleton class
 public class Communication {
     private static Communication comm = null;
+    static Integer numNodes = 0;
     Map<Integer, InetAddress> nodesIp;
     Map<Integer, Integer> nodesPort;
     Map<Integer, DatagramSocket> sendingSocket;
@@ -58,13 +59,22 @@ public class Communication {
         DatagramPacket DpReceive = new DatagramPacket(receive, receive.length);
         receivingSocket.get(receiverId).receive(DpReceive);
         rec = new String(receive, StandardCharsets.UTF_8);
-
         debug("Node received " + receiverId + " Msg : " + rec);
         return rec;
     }
 
-    public void send_nack(Integer receiverId) {
-        String nack_msg = "nack";
+    public void send_nack(Integer senderId, Integer receiverId) throws IOException {
+        send("nack", senderId, receiverId);
+    }
+
+    public void sendReject(Integer senderId, Integer receiverId) throws IOException {
+        send("reject", senderId, receiverId);
+    }
+
+    public void sendAll(String msg, Integer senderId) throws IOException {
+        for (int i = 0; i < numNodes; i++) {
+            send(msg, senderId, i);
+        }
     }
 
     void debug(String str) {
