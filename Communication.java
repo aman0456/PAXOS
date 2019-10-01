@@ -21,6 +21,11 @@ public class Communication {
     Map<Integer, DatagramSocket> sendingSocket;
     Map<Integer, DatagramSocket> receivingSocket;
 
+    void debug(String str) {
+        boolean a = true;
+        if(a) System.out.println(str);
+    }
+
     private Communication() {
         nodesIp = new HashMap<>();
         sendingPort = new HashMap<>();
@@ -73,7 +78,8 @@ public class Communication {
         DatagramPacket DpReceive = new DatagramPacket(receive, receive.length);
         receivingSocket.get(receiverId).receive(DpReceive);
         rec = new String(receive, StandardCharsets.UTF_8);
-        debug("Node received " + receiverId + " Msg : " + rec);
+        debug("Node received " + receiverId + " Msg : " + rec );
+        
         return rec;
     }
 
@@ -91,11 +97,7 @@ public class Communication {
         }
     }
 
-    void debug(String str) {
-        boolean a = true;
-        if(a) System.out.println(str);
-    }
-
+    
     public void closeAll(){
         for (Map.Entry<Integer, Integer> pair : sendingPort.entrySet()) {
             removeNode(pair.getKey());
