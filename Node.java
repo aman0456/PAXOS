@@ -1,106 +1,233 @@
 import java.util.ArrayList;
-
-import jdk.nashorn.api.tree.CaseTree;
-
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.lang.Thread;
+import java.time.Clock;
+import java.time.Duration;
+import java.time.Instant;
 
-// import 
-/**
- * Node
- */
-public class Node< V extends Comparable<V>> extends Thread {
-    ArrayList<LogEntry<Integer, V>> nodelog;
+public class Node extends Thread {
+    ArrayList<LogEntry<Integer, String>> nodelog;
 
     Integer nodeId; // Unique Id for each node
     Boolean isPromised; // Did it promise to anyone ?
-    Boolean isAccepted;
-    Integer curPropId; // Id which is prepared
-    Integer curPromId; // The Id to which it promised
-    V preAcc; // value accepted after promised
+    Boolean isAccepted; // Did it accept any value ?
+    Boolean isPromiseWait; // Waiting for promise majority
+    Boolean isAcceptWait;
+    Integer curPropPid; // Id which is prepared
+    Integer curPromPid; // The Id to which it promised
+    String valueAcc; // value accepted after promised
+    Boolean isPromiseMajority; // Did the promises reach the majority
+    Boolean isAcceptMajority;
+
+    ArrayList<Integer> promisedIds;
+    
+    Duration duration = Duration.ofSeconds(10);
+    Instant startTime;
     Communication comm = Communication.getInstance(); // Object to send messages
 
-    Node(Integer nodeId) {
+    // Debuging
+    PrintWriter writer;
+    static Integer ordering;
+
+    Node(Integer nodeId) throws FileNotFoundException, UnsupportedEncodingException {
         this.nodelog = new ArrayList<>();
         this.nodeId = nodeId;
-        this.curPropId = 0;
+        this.curPropPid = 21;
+        this.curPromPid = 51;
+        this.ordering = 0;
+        this.promisedIds = new ArrayList<>();
+        this.isPromiseMajority = false;
+        this.isAcceptMajority = false;
+
+        this.isPromised = false;
+        this.isAccepted = false;
+        this.isAcceptWait = false;
+        this.isPromiseWait = false;
+        
+        writer = new PrintWriter("nodeDebug/"+nodeId,"UTF-8");
     }
 
     void debug(String str) {
         boolean a = true;
-        if(a) System.out.println(str);
+        // if(a) System.out.println(str);
+        if(a) writer.println(ordering + ":"+ str);
+        ordering++;
+        writer.flush();
+    }
+    // String makeMsg(String delim, String[] params){
+    //     String msg = "";
+    //     for(String i: params){  msg = msg + delim + i;}
+    //     return msg;
+    // }
+    Boolean checkTimeout(Instant startTime){
+        Duration timeElapsed = Duration.between(startTime,Instant.now());
+        return timeElapsed.toMillis() > duration.toMillis();
     }
 
     void prepare() throws IOException {
-        // Send to all prepare - id
-        String prepareMsg = "PREPARE:"+nodeId+":"+curPropId;
-        // Integer prop_id  ;                                      // ASSUME: To use to create prepare_msg
+        /* To send Prepare Msg */
+        isPromiseWait = true;
+        isAcceptWait = false;
+        isAcceptMajority = false;
+        isPromiseMajority = false;
+        promisedIds.clear();
+        startTime = Instant.now();
+
+
+        debug("Sending Prepare " + curPropPid);
+        String prepareMsg = "PREPARE:"+nodeId+":"+curPropPid;
         comm.sendAll(prepareMsg, nodeId);
+
     }
-    void promise(Integer propId) throws IOException {
-        Integer recNodeId = 0;                 // ASSUME: Nodeid from which the propId is received
-        String promiseMsg = "promise";
+
+    
+    void promise(Integer propPid, Integer fromID) throws IOException {
+        /* sends Response when received Prepare Msg */
+        
+        String promiseMsg = "PROMISE:"+nodeId+":"+propPid;
         if (this.isPromised) {
-            if (propId.compareTo(this.curPromId) <= 0){
-                // Ignore or send NACK with curPromId 
-                comm.send_nack(nodeId, recNodeId);
+            if (propPid.compareTo(this.curPromPid) <= 0){
+                debug("Prepare " + propPid + " rejected from " + fromID);
+                comm.send_nack(nodeId, fromID); //TODO: For the propID nackMsg
             } else {
                 if (isAccepted) {
-                    // [Edit/Send] promiseMsg with propId 
+                    // Sending Promised Msg with value
+                    debug("Sending Promise "+ propPid + " to " + fromID + " accepted " + curPromPid + " " + valueAcc);
+                    String newpromiseMsg = promiseMsg +":"+curPromPid+":"+ valueAcc;
+                    comm.send(newpromiseMsg,nodeId,fromID);
+                    curPromPid = propPid;
                 } else {
-                    // [Send] promiseMsg without propId 
-                    curPromId = propId;
+                    // Change the promised node
+                    debug("Sending Promise "+ propPid + " to " + fromID);
+                    comm.send(promiseMsg,nodeId,fromID);
+                    curPromPid = propPid;
                 }
-                comm.send(promiseMsg, nodeId, recNodeId);
             }
         } else {
-            // [Send] promise_msg without prop_id  
             this.isPromised = true;
-            this.curPromId = propId;
-            comm.send(promiseMsg, nodeId, recNodeId);
+            this.curPromPid = propPid;
+            debug("Sending Promise "+ propPid + " to " + fromID);
+            comm.send(promiseMsg, nodeId, fromID);
         }
-        debug("Promise sent to " + Integer.toString(recNodeId));
+        debug("Promise sent to " + Integer.toString(fromID));
     }
 
-    // This value is set by the driver function, preAcc
-    void accept_request(Integer id, V value) throws IOException {
-        String accept_request_msg = "accept_request";
-        // Integer prop_id  ;                                      // ASSUME: To use to create prepare_msg
-        ArrayList <Integer> promiseNodes = new ArrayList<>();  // ASSUME: promiseNodes are stored 
-        for(Integer i : promiseNodes){
-            comm.send(accept_request_msg, nodeId, i);
-        }
+    void accept_request(Integer sendId, String value) throws IOException {
+        /* to send the value to the promised nodes. curPropPid can't change in this */
+        startTime = Instant.now();
+
+        debug("Sending Accept-Request "+ curPropPid + " " + value); 
+        String accept_requestMsg = "ACCEPT_REQUEST:"+nodeId+":"+curPropPid+":"+value;
+        comm.send(accept_requestMsg, nodeId, sendId);
     }
 
-    void accept(Integer id, V value) throws IOException {
-        String listenerMsg = "listner";
-        Integer recNodeId = 0;                 // ASSUME: Nodeid from which the accept request is received
-        if (this.isPromised && id.compareTo(this.curPromId) <= 0) {
-        	comm.sendReject(nodeId, recNodeId);
+    void accept(Integer propId, Integer fromId, String value) throws IOException {
+        /* to send accept for the promised pid and value */
+        String acceptMsg = "ACCEPT:"+nodeId+":"+curPromPid+":"+value;
+        
+        if (this.isPromised && propId.compareTo(this.curPromPid) < 0) {
+            debug("Rejecting Accept-Request " + propId + " "+ value);
+        	comm.sendReject(nodeId, fromId);
         } else {
-        	this.isAccepted = true;
-        	this.preAcc = value;
-        	comm.sendAll(listenerMsg, nodeId);
+        	isAccepted = true;
+            valueAcc = value;
+            debug("Sending Accept " + curPromPid + " "+ value);
+        	comm.send(acceptMsg, nodeId, fromId);
         }
     }
     
     @Override
     public void run() { 
         debug("Inside Node run " + nodeId);
-        
-        
+        String valueSend = "";
+        int acceptCount = 0;
         try {
-            // comm.send("Hello Hello", nodeId, 1 - nodeId);
-            // String rev = comm.receive(nodeId);
-            // debug("Received : " + rev);
+            
             while(true){
                 String cmd = comm.receive(nodeId);
                 String[] parList = cmd.split(":");
-                
-                if (parList[0].compareTo("PREPARE") == 0){
-                    
+                if (isPromiseWait){
+                    assert !isPromiseMajority;
+                    if(checkTimeout(startTime)){
+                        debug("Prepare Timeout " + curPropPid + " "+ valueSend);
+                        curPropPid++;
+                        debug("called at promise");
+                        prepare();
+                    }
                 }
+                if (isAcceptWait ){
+                    if(checkTimeout(startTime)){
+                        debug("Accept Timeout " + curPropPid + " "+ valueSend);
+                        debug("called at Accept");
+                        curPropPid++;
+                        prepare();
+                    } 
+                }
+                if (parList[0].compareTo("TIMEOUT") == 0){
+                    // debug();
+                    
+                }else  
+                if (parList[0].compareTo("CMDPREPARE") == 0){
+                    // If another request comes in middle of protocol, it rejected 
+                    valueSend = parList[1].trim();
+                    prepare();
+                } else 
+                if (parList[0].compareTo("PREPARE") == 0){
+                    // debug(nodeId + " " +cmd.toString());
+                    // debug(nodeId + " " +parList[1].toString());
+                    // debug(nodeId + " " +parList[2].toString());
+                    // continue;
+                    Integer fromId = Integer.parseInt(parList[1].trim());
+                    Integer propPid = Integer.parseInt(parList[2].trim());
+                    debug("Received Prepare " + propPid + " from " + fromId);
+                    promise(propPid, fromId);
+                } else 
+                if (parList[0].compareTo("PROMISE") == 0){
 
+                    Integer fromId = Integer.parseInt(parList[1].trim());
+                    Integer propPid = Integer.parseInt(parList[2].trim());
+                    debug("Received Promise " + fromId + " "+ propPid + " " + curPropPid);
+                    if(propPid != curPropPid) continue;
+                    promisedIds.add(fromId);
+                    
+                    // Check Majority If majority then send 
+                    if(isPromiseMajority){
+                        accept_request(fromId,valueSend);
+                    } else {
+                        
+                        if (comm.checkMajority(promisedIds.size()) ){
+                            debug("Reached Majority " + promisedIds.size() + " Promises " + curPropPid);
+                            isPromiseMajority = true;
+                            assert !isAcceptMajority;
+                            acceptCount = 0;
+                            for (Integer tosendId : promisedIds){
+                                accept_request(tosendId, valueSend);
+                            }
+                        }
+                    }
+                } else 
+                if (parList[0].compareTo("ACCEPT_REQUEST") == 0){
+                    Integer fromId = Integer.parseInt(parList[1].trim());
+                    Integer acceptPid = Integer.parseInt(parList[2].trim());
+                    String valueAcc = parList[3].trim();
+                    accept(acceptPid, fromId, valueAcc);
+                } else 
+                if (parList[0].compareTo("ACCEPT") == 0){
+                    acceptCount++;
+                    Integer fromId = Integer.parseInt(parList[1].trim());
+                    Integer acceptPid = Integer.parseInt(parList[2].trim());
+                    String valueAcc = parList[3].trim(); 
+
+                    if (!isAcceptMajority && comm.checkMajority(acceptCount)){
+                        debug("Reached Majority " + acceptCount + " Promises " + curPropPid + " Value: " + valueAcc);
+                        isAcceptMajority = true;
+                        isAcceptWait = false;
+                        //TODO: SEND TO ALL 
+                    }
+                }
             }
             // if (nodeId == 0) {
             // 	prepare();
@@ -108,41 +235,7 @@ public class Node< V extends Comparable<V>> extends Thread {
             
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
- 
-    // public static void main(String[] args) {
-    //     Node<Integer,String> node = new Node<Integer,String>();
-    //     node.debug("main called here");
-    //     node.debug("main working");
-    //     try{Thread.sleep(500);}catch(InterruptedException e){System.out.println(e);}
-    //     node.debug("done working");
-    // }
-
-
-
 }
-
-
-/* Templates which might be needed 
-
-a.compareTo(b) -- (>0 if a>b ), ( <0 if a<b ), (==0 if a==b)
-class Foo<T extends Comparable<T>>{
-    T value;
-}
-
-public class Entry<T> implements Comparable<Entry<T>>
-{
-    T value;
-    public Integer compareTo(Entry<T> a)
-    {
-        String temp1 = this.toString();
-        String temp2 = a.toString();
-        return temp1.compareTo(temp2);
-    }
-}
-
-
-*/ 
