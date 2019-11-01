@@ -24,7 +24,7 @@ public class Node extends Thread {
 
     ArrayList<Integer> promisedIds;
     
-    Duration duration = Duration.ofSeconds(10);
+    Duration duration = Duration.ofSeconds(1); // TIMEOUT PARAMETER
     Instant startTime;
     Communication comm = Communication.getInstance(); // Object to send messages
 
@@ -148,7 +148,7 @@ public class Node extends Thread {
             
             while(true){
                 String cmd = comm.receive(nodeId);
-                String[] parList = cmd.split(":");
+				String[] parList = cmd.trim().split("\\s*:\\s*");
                 if (isPromiseWait){
                     assert !isPromiseMajority;
                     if(checkTimeout(startTime)){
@@ -166,13 +166,14 @@ public class Node extends Thread {
                         prepare();
                     } 
                 }
-                if (parList[0].compareTo("TIMEOUT") == 0){
-                    // debug();
+                if (parList[0].compareTo("TIMY") == 0){
+					debug("SLEEPING NOW :(");
+					sleep(20000);
                     
                 }else  
                 if (parList[0].compareTo("CMDPREPARE") == 0){
                     // If another request comes in middle of protocol, it rejected 
-                    valueSend = parList[1].trim();
+                    valueSend = parList[1];
                     prepare();
                 } else 
                 if (parList[0].compareTo("PREPARE") == 0){
@@ -180,16 +181,16 @@ public class Node extends Thread {
                     // debug(nodeId + " " +parList[1].toString());
                     // debug(nodeId + " " +parList[2].toString());
                     // continue;
-                    Integer fromId = Integer.parseInt(parList[1].trim());
-                    Integer propPid = Integer.parseInt(parList[2].trim());
+                    Integer fromId = Integer.parseInt(parList[1]);
+                    Integer propPid = Integer.parseInt(parList[2]);
                     debug("Received Prepare " + propPid + " from " + fromId);
                     promise(propPid, fromId);
                 } else 
                 if (parList[0].compareTo("PROMISE") == 0){
 
-                    Integer fromId = Integer.parseInt(parList[1].trim());
-                    Integer propPid = Integer.parseInt(parList[2].trim());
-                    debug("Received Promise " + fromId + " "+ propPid + " " + curPropPid);
+                    Integer fromId = Integer.parseInt(parList[1]);
+                    Integer propPid = Integer.parseInt(parList[2]);
+                    debug("Received Promise " + propPid + " from " + fromId + " " + curPropPid);
                     if(propPid != curPropPid) continue;
                     promisedIds.add(fromId);
                     
@@ -210,16 +211,16 @@ public class Node extends Thread {
                     }
                 } else 
                 if (parList[0].compareTo("ACCEPT_REQUEST") == 0){
-                    Integer fromId = Integer.parseInt(parList[1].trim());
-                    Integer acceptPid = Integer.parseInt(parList[2].trim());
-                    String valueAcc = parList[3].trim();
+                    Integer fromId = Integer.parseInt(parList[1]);
+                    Integer acceptPid = Integer.parseInt(parList[2]);
+                    String valueAcc = parList[3];
                     accept(acceptPid, fromId, valueAcc);
                 } else 
                 if (parList[0].compareTo("ACCEPT") == 0){
                     acceptCount++;
-                    Integer fromId = Integer.parseInt(parList[1].trim());
-                    Integer acceptPid = Integer.parseInt(parList[2].trim());
-                    String valueAcc = parList[3].trim(); 
+                    Integer fromId = Integer.parseInt(parList[1]);
+                    Integer acceptPid = Integer.parseInt(parList[2]);
+                    String valueAcc = parList[3]; 
 
                     if (!isAcceptMajority && comm.checkMajority(acceptCount)){
                         debug("Reached Majority " + acceptCount + " Promises " + curPropPid + " Value: " + valueAcc);
@@ -227,7 +228,12 @@ public class Node extends Thread {
                         isAcceptWait = false;
                         //TODO: SEND TO ALL 
                     }
-                }
+				} else 
+				if (parList[0].compareTo("SOCKET_TIMEOUT") == 0 ){
+					continue;
+				} else {
+					debug(parList[0] + " COMMAND NOT FOUND : IGNORING");
+				}
             }
             // if (nodeId == 0) {
             // 	prepare();
@@ -236,6 +242,9 @@ public class Node extends Thread {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        } catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

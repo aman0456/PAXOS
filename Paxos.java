@@ -31,7 +31,7 @@ public class Paxos {
         // s1.close();
         // s2.close();
         ArrayList<Node> nodeList = new ArrayList<>();
-        int nn = 10;
+        int nn = 5;
         for (int i = 0; i < nn; i++) {
             Node n1=paxos.addNode(localIp, 7000+2*i, 7001+2*i);
             nodeList.add(n1);
@@ -39,10 +39,14 @@ public class Paxos {
         for (int i = 0; i < nn; i++) {
             nodeList.get(i).start();
         }
+        paxos.comm.send("TIMY", 0, 2);
+        paxos.comm.send("TIMY", 0, 3);
+        paxos.comm.send("TIMY", 0, 4);
         paxos.comm.send("CMDPREPARE:50", 0, 1);
-        paxos.comm.send("CMDPREPARE:51", 0, 2);
-        paxos.comm.send("CMDPREPARE:52", 0, 3);
-        paxos.comm.send("CMDPREPARE:53", 0, 4);
+        // paxos.comm.send("TIMY:", 0, 1);
+        // paxos.comm.send("CMDPREPARE:51", 0, 2);
+        // paxos.comm.send("CMDPREPARE:52", 0, 3);
+        // paxos.comm.send("CMDPREPARE:53", 0, 4);
         // paxos.addNode(localIp, 7080);
         
     }

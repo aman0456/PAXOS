@@ -84,7 +84,7 @@ public class Communication {
         try {
             receivingSocket.get(receiverId).receive(DpReceive);
         } catch (SocketTimeoutException e) {
-            return "TIMEOUT";
+            return "SOCKET_TIMEOUT";
         }
         rec = new String(receive, StandardCharsets.UTF_8);
         // debug("Node received " + receiverId + " Msg--" + rec );
