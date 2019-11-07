@@ -1,0 +1,47 @@
+2:Inside Node run 2
+7:Sending Prepare 21
+17:Received Prepare 21 from 1
+34:Sending Promise 21 to 1
+35:Promise sent to 1
+38:Received Prepare 21 from 3
+39:Prepare 21 rejected from 3
+40:Promise sent to 3
+44:Received Prepare 21 from 2
+45:Prepare 21 rejected from 2
+46:Promise sent to 2
+64:Sending Accept 21 50
+75:Prepare Timeout for proposal 21
+76:Prepare Timeout : Pid 21 curVal :null
+77:Sending Prepare 22
+102:Received Promise 22 22 from 0
+103:Received Prepare 22 from 3
+104:Sending Promise 22 to 3 accepted 21 50
+105:Promise sent to 3
+106:Received Prepare 22 from 2
+107:Prepare 22 rejected from 2
+108:Promise sent to 2
+125:Sending Accept 22 50
+129:Prepare Timeout for proposal 22
+130:Prepare Timeout : Pid 22 curVal :50
+131:Sending Prepare 23
+136:Received Prepare 23 from 2
+138:Sending Promise 23 to 2 accepted 22 50
+139:Promise sent to 2
+143:Received Promise 23 23 from 0
+148:Received Promise 23 23 from 2
+149:Received Promise 23 23 from 4
+150:Received Promise 23 23 from 1
+151:Received Promise 23 23 from 3
+152:Reached Majority of 5 Promises for proposal 23
+153:Sending Accept-Request 23 50
+154:Sending Accept-Request 23 50
+156:Sending Accept-Request 23 50
+158:Sending Accept-Request 23 50
+159:Sending Accept-Request 23 50
+161:Sending Accept 23 50
+162:Got Acceptance 23 Value: 50 from 0
+163:Got Acceptance 23 Value: 50 from 4
+164:Got Acceptance 23 Value: 50 from 1
+165:Got Acceptance 23 Value: 50 from 2
+166:Reached Majority 4 Acceptances 23 Value: 50
+167:Got Acceptance 23 Value: 50 from 3

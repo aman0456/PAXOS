@@ -93,11 +93,11 @@ public class Communication {
     }
 
     public void send_nack(Integer senderId, Integer receiverId) throws IOException {
-        send("nack", senderId, receiverId);
+        send("NACK", senderId, receiverId);
     }
 
     public void sendReject(Integer senderId, Integer receiverId) throws IOException {
-        send("reject", senderId, receiverId);
+        send("REJECT", senderId, receiverId);
     }
 
     public void sendAll(String msg, Integer senderId) throws IOException {

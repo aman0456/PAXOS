@@ -1,0 +1,10 @@
+9:Inside Node run 9
+16:Received Prepare 21 from 2
+17:Sending Promise 21 to 2
+18:Promise sent to 2
+67:Received Prepare 21 from 1
+68:Prepare 21 rejected from 1
+69:Promise sent to 1
+73:Received Prepare 21 from 3
+74:Prepare 21 rejected from 3
+75:Promise sent to 3
