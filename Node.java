@@ -84,6 +84,16 @@ public class Node extends Thread {
 		mainStartTime = Instant.now();
 	}
 
+	void prePrepare() throws IOException {
+		/* To send Pre-Prepare Msg */
+		resetPrepare();
+		mainStartTime = Instant.now();
+
+		debug("Sending Prepare " + curPropPid);
+		String prepareMsg = "PREPARE:"+nodeId+":"+curPropPid;
+		comm.sendAll(prepareMsg, nodeId);
+
+	}
 	void prepare() throws IOException {
 		/* To send Prepare Msg */
 		resetPrepare();
