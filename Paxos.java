@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Paxos {
     Map<Integer, Node > nodeList;
@@ -14,9 +15,9 @@ public class Paxos {
     }
     Communication comm = Communication.getInstance(); // Object to send messages
     Node addNode(InetAddress ip, Integer sendPort, Integer recPort) throws IOException {
-        Node node = new Node(numNodes);
+        Node node = new Node(numNodes); // CHANGE: TODO:
         comm.addNode(numNodes, ip, sendPort, recPort);
-        comm.numNodes++;
+        Communication.numNodes++;
         numNodes++;
         return node;
     }
@@ -42,12 +43,36 @@ public class Paxos {
         // paxos.comm.send("TIMY", 0, 2);
         // paxos.comm.send("TIMY", 0, 3);
         // paxos.comm.send("TIMY", 0, 4);
+
         paxos.comm.send("CMDPREPARE:50", 0, 1);
         // paxos.comm.send("TIMY:", 0, 1);
         paxos.comm.send("CMDPREPARE:51", 0, 2);
         paxos.comm.send("CMDPREPARE:52", 0, 3);
         // paxos.comm.send("CMDPREPARE:53", 0, 4);
         // paxos.addNode(localIp, 7080);
+        Scanner inputReader = new Scanner(System.in);
         
+        String cmd ;
+        String[] cmdList ; 
+        String mainCmd;
+
+        Integer value,toId,fromId;
+        while(true){
+            cmd = inputReader.nextLine();
+            cmdList = cmd.trim().split(" ");
+            mainCmd = cmdList[0];
+            if (mainCmd.compareTo("cli") == 0){
+                value = Integer.parseInt(cmdList[1]);
+                toId = Integer.parseInt(cmdList[2]);
+                paxos.comm.send("CMDPREPARE:"+value, 0, toId);
+            }
+            else if (mainCmd.compareTo("timout") == 0){
+                value = Integer.parseInt(cmdList[1]);
+                toId = Integer.parseInt(cmdList[2]);
+                paxos.comm.send("TIMY:"+value, 0, toId);
+            }else {
+                System.out.println(mainCmd + "; NOT FOUND TO INITIATE: " + cmd);
+            }
+        }
     }
 }

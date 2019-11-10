@@ -16,12 +16,15 @@ import java.util.Map.Entry;
 public class Communication {
     private static Communication comm = null;
     static Integer numNodes = 0;
-    Integer receiveTimeout = 2000;
+    Integer receiveTimeout = 2000; // HARDCODED PARAMS
     Map<Integer, InetAddress> nodesIp;
     Map<Integer, Integer> sendingPort;
     Map<Integer, Integer> receivingPort;
     Map<Integer, DatagramSocket> sendingSocket;
     Map<Integer, DatagramSocket> receivingSocket;
+
+    Integer leader; 
+    // Boolean isLeaderPhase; 
 
     void debug(String str) {
         boolean a = true;
@@ -34,8 +37,20 @@ public class Communication {
         sendingSocket = new HashMap<>();
         receivingPort = new HashMap<>();
         receivingSocket = new HashMap<>();
+        leader = -1;
 
     }
+
+    public Integer getLeader(){         return this.leader;     }
+    public void setLeader(Integer l){   this.leader = l;        }
+
+    public Boolean isLeader(Integer l) { return this.leader == l;}
+
+    public Integer getNumNodes() { return Communication.numNodes; }
+
+    // public Boolean getisLeaderPhase(){    return this.isLeaderPhase; }
+    // public void setisLeaderPhase(Boolean b){    this.isLeaderPhase= b; }
+
 
     public static Communication getInstance() {
         if (comm == null)

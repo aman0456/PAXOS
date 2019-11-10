@@ -21,27 +21,41 @@ public class Node extends Thread {
 	String valueAcc; // value accepted after promised
 	Boolean isPromiseMajority; // Did the promises reach the majority
 	Boolean isAcceptMajority;
-
+	Boolean isCompleted;
+	
 	Integer acceptCount;
 
 	ArrayList<Integer> promisedIds;
 	
-	Duration mainTimeoutDuration = Duration.ofSeconds(5);
-	Duration secondaryTimeoutDuration = Duration.ofSeconds(1);
+	// HARDCODED PARAMS
+	Duration mainTimeoutDuration = Duration.ofSeconds(2);
+	Duration secondaryTimeoutDuration = Duration.ofSeconds(0); 
 	Instant mainStartTime;
 	Instant secondaryStartTime;
 	Communication comm = Communication.getInstance(); // Object to send messages
 
+	Duration heartBeatDuration = Duration.ofSeconds(1);
+	Duration heartBeatTimeoutDuration = Duration.ofSeconds(5);
+	Instant heartBeatSent; 
+	Instant heartBeatReceived;
+
+    Boolean isLeaderPhase; 
+
 	// Debuging
 	PrintWriter writer;
 	static Integer ordering;
+	Integer level0 = 0; // Important
+	Integer level1 = 1; // Less Important
+	Integer level2 = 2;
+
 
 	Node(Integer nodeId) throws FileNotFoundException, UnsupportedEncodingException {
 		this.nodelog = new ArrayList<>();
 		this.nodeId = nodeId;
-		this.curPropPid = 21;
-		this.curPromPid = 51;
-		this.ordering = 0;
+		this.curPropPid = 100 + nodeId;
+		this.curPromPid = 100 + nodeId;
+		Node.ordering = 0;
+		
 		
 		this.promisedIds = new ArrayList<>();
 		this.isPromiseMajority = false;
@@ -51,18 +65,26 @@ public class Node extends Thread {
 		this.isAccepted = false;
 		this.isAcceptWait = false;
 		this.isPromiseWait = false;
+		this.isCompleted = false;
+
+		this.heartBeatReceived = Instant.now();
+		this.heartBeatSent = Instant.now();
+		this.isLeaderPhase = false;
 		
 		this.acceptCount = 0;
 		
 		writer = new PrintWriter("nodeDebug/"+nodeId,"UTF-8");
+		
 	}
 
-	void debug(String str) {
-		boolean a = true;
+	void debug(String str,Integer level0) {
+		Integer Verbosity = 2;
 		// if(a) System.out.println(str);
-		if(a) writer.println(ordering + ":"+ str);
-		ordering++;
-		writer.flush();
+		if(level0 <= Verbosity ){ 
+			writer.println(ordering + ":"+ str);
+			ordering++;
+			writer.flush();
+		}
 	}
 	// String makeMsg(String delim, String[] params){
 	//     String msg = "";
@@ -74,14 +96,58 @@ public class Node extends Thread {
 		return timeElapsed.toMillis() > timeoutDuration.toMillis();
 	}
 
+	void heartBeat() throws IOException {
+		this.heartBeatSent = Instant.now();
+		debug("Sending HeartBeat " + nodeId,level2);
+		String heartbeatMsg = "HEARTBEAT:"+nodeId;
+		comm.sendAll(heartbeatMsg, nodeId); 
+	}
+	
+	
+		void increPropPid()throws IOException {
+			this.curPropPid = this.curPropPid + comm.getNumNodes();
+		}
+		
+		void handlePrepareTimeout(String msg) throws IOException {
+			// curPropPid++;
+			increPropPid();
+			debug(msg,level0);
+			prepare();
+		}
+	
+		void handleAcceptTimeout(String msg) throws IOException {
+			// debug("Timeout while waiting for acceptances " + curPropPid + " "+ valueSend);
+			// curPropPid++;
+			increPropPid();
+			debug(msg,level0);
+			prepare();
+		}
+	
+		void handleHeartBeatTimeout(String msg) throws IOException {
+			// curPropPid++;
+			increPropPid();
+			debug(msg,level0);
+			this.isLeaderPhase = true;
+			prepare();
+		}
+	// void electLeader() throws IOException {
+		// 	debug("Contesting for Leader " + nodeId);
+	// 	// Value is the nodeId 
+	// 	// comm.sendAll();
+	// }
 	void resetPrepare() throws IOException {
-		isPromiseWait = true;
-		isAcceptWait = false;
-		isAcceptMajority = false;
-		isPromiseMajority = false;
-		acceptCount = 0;
-		promisedIds.clear();
-		mainStartTime = Instant.now();
+		this.isPromiseWait = true;
+		this.isAcceptWait = false;
+		this.isAcceptMajority = false;
+		this.isPromiseMajority = false;
+		this.acceptCount = 0;
+		this.promisedIds.clear();
+		this.mainStartTime = Instant.now();
+
+		// FIXME 
+		this.isPromised = false;
+		this.isAccepted = false;
+		this.isCompleted = false;
 	}
 
 	void prepare() throws IOException {
@@ -89,7 +155,7 @@ public class Node extends Thread {
 		resetPrepare();
 		mainStartTime = Instant.now();
 
-		debug("Sending Prepare " + curPropPid);
+		debug("Sending Prepare " + curPropPid,level0);
 		String prepareMsg = "PREPARE:"+nodeId+":"+curPropPid;
 		comm.sendAll(prepareMsg, nodeId);
 
@@ -102,18 +168,18 @@ public class Node extends Thread {
 		String promiseMsg = "PROMISE:"+nodeId+":"+propPid;
 		if (this.isPromised) {
 			if (propPid.compareTo(this.curPromPid) <= 0){
-				debug("Prepare " + propPid + " rejected from " + fromID);
+				debug("Prepare <= PID:" + propPid + " PROMPID:" + this.curPromPid+ " rejected from " + fromID,level0);
 				comm.send_nack(nodeId, fromID); //TODO: For the propID nackMsg
 			} else {
 				if (isAccepted) {
 					// Sending Promised Msg with value
-					debug("Sending Promise "+ propPid + " to " + fromID + " accepted " + curPromPid + " " + valueAcc);
+					debug("Sending Promise PID:"+ propPid + " to " + fromID + " accepted PROMPID:" + curPromPid + " ValACC: " + valueAcc,level0);
 					String newpromiseMsg = promiseMsg +":"+curPromPid+":"+ valueAcc;
 					comm.send(newpromiseMsg,nodeId,fromID);
 					curPromPid = propPid;
 				} else {
 					// Change the promised node
-					debug("Sending Promise "+ propPid + " to " + fromID);
+					debug("Sending Promise Higher PID:"+ propPid + " to " + fromID,level0);
 					comm.send(promiseMsg,nodeId,fromID);
 					curPromPid = propPid;
 				}
@@ -121,17 +187,17 @@ public class Node extends Thread {
 		} else {
 			this.isPromised = true;
 			this.curPromPid = propPid;
-			debug("Sending Promise "+ propPid + " to " + fromID);
+			debug("Sending Promise "+ propPid + " to " + fromID,level0);
 			comm.send(promiseMsg, nodeId, fromID);
 		}
-		debug("Promise sent to " + Integer.toString(fromID));
+		// debug("Promise sent to " + Integer.toString(fromID),level0);
 	}
 
 	void accept_request(Integer sendId, String value) throws IOException {
 		/* to send the value to the promised nodes. curPropPid can't change in this */
 		mainStartTime = Instant.now();
 
-		debug("Sending Accept-Request "+ curPropPid + " " + value); 
+		debug("Sending Accept-Request to " + sendId + " curPROPPID:"+ curPropPid + " Val: " + value,level0); 
 		String accept_requestMsg = "ACCEPT_REQUEST:"+nodeId+":"+curPropPid+":"+value;
 		comm.send(accept_requestMsg, nodeId, sendId);
 	}
@@ -141,59 +207,67 @@ public class Node extends Thread {
 		String acceptMsg = "ACCEPT:"+nodeId+":"+curPromPid+":"+value;
 		
 		if (this.isPromised && propId.compareTo(this.curPromPid) < 0) {
-			debug("Rejecting Accept-Request " + propId + " "+ value);
+			debug("Rejecting Accept-Request with lower PID: " + propId + ", My PROMID: " + this.curPromPid + " Val: "+ value,level0);
 			comm.sendReject(nodeId, fromId);
 		} else {
 			isAccepted = true;
 			valueAcc = value;
-			debug("Sending Accept " + curPromPid + " "+ value);
+			debug("Sending Accept PROMPID:" + curPromPid + " Val: "+ value + " to " + fromId,level0);
 			comm.send(acceptMsg, nodeId, fromId);
 		}
-	}
-	
-	void handlePrepareTimeout(String msg) throws IOException {
-		curPropPid++;
-		debug(msg);
-		prepare();
-	}
-
-
-	void handleAcceptTimeout(String msg) throws IOException {
-		// debug("Timeout while waiting for acceptances " + curPropPid + " "+ valueSend);
-		curPropPid++;
-		debug(msg);
-		prepare();
 	}
 
 	@Override
 	public void run() { 
-		debug("Inside Node run " + nodeId);
+		debug("Inside Node run " + nodeId,level0);
 		String valueSend = "";
-		int acceptCount = 0;
 		String curMax = null;
 		try {
 			while(true){
+				
 				String cmd = comm.receive(nodeId);
 				String[] parList = cmd.trim().split("\\s*:\\s*");
 				String mainCmd = parList[0];
 				//checking for promise timeout
+				
+				if(comm.isLeader(this.nodeId) && checkTimeout(this.heartBeatSent, heartBeatDuration)){
+					this.heartBeat();
+				}
+				
+				
+				if (!this.isLeaderPhase) {
+					// TO elect a leader at the very begining 
+					if(comm.isLeader(-1)){
+						valueSend = nodeId.toString();
+						handleHeartBeatTimeout("NODE " + this.nodeId + " STARTING ELECTION");
+					}
+					// If heartBeat timeouts
+					if (checkTimeout(this.heartBeatReceived, heartBeatTimeoutDuration)){
+						valueSend = nodeId.toString();
+						handleHeartBeatTimeout("HEARTBEAT TIMEOUT NODE " + this.nodeId + " STARTING ELECTION");
+					}	
+				}
 				if (isPromiseWait){
 					if(checkTimeout(mainStartTime, mainTimeoutDuration) ||
-						(isPromiseMajority && checkTimeout(secondaryStartTime, secondaryTimeoutDuration))) {
+					(isPromiseMajority && checkTimeout(secondaryStartTime, secondaryTimeoutDuration))) {
 						isPromiseWait = false;
-
+						
 						if (isPromiseMajority) {
-							debug("Reached Majority of " + promisedIds.size() + " Promises for proposal " + curPropPid);
+							debug("Reached Majority of " + promisedIds.size() + " Promises for proposal " + curPropPid,level0);
 							assert !isAcceptMajority;
 							assert acceptCount == 0;
 							if (curMax != null) valueSend = curMax;
+							curMax = valueSend;
+
+							isAcceptWait = true; // FIX
+							
 							for (Integer tosendId : promisedIds){
 								accept_request(tosendId, valueSend);
 							}
 						}
 						else {
-							debug("Prepare Timeout for proposal " + curPropPid);
-							handlePrepareTimeout("Prepare Timeout : Pid " + curPropPid + " curVal :"+ curMax);
+							// debug("PREPARE TIMEOUT FOR PROPOSOL " + curPropPid,level0);
+							handlePrepareTimeout("PREPARE TIMEOUT : Pid " + curPropPid + " curVal :"+ curMax);
 						}
 					}
 				}
@@ -204,21 +278,39 @@ public class Node extends Thread {
 					if(checkTimeout(mainStartTime,mainTimeoutDuration)) handleAcceptTimeout("Accept Timeout  Pid :" + curPropPid + " curVal :"+ curMax);
 				}
 				
-				if (mainCmd.compareTo("SOCKET_TIMEOUT") == 0){
-					// debug();
-				}
+				/* **************** Asserts ****************************/ 
+				
+				assert (isPromiseMajority || isAcceptWait || isAcceptMajority) : "Accept assertion failed";
+				// assert ();
 
-				else if (mainCmd.compareTo("CMDPREPARE") == 0){
+
+				/* *****************************************************/ 
+				
+				if (mainCmd.compareTo("TIMY") == 0) {
+					Integer seconds = Integer.parseInt(parList[1]);
+					debug("SLEEPING NOW :(",level0);
+					sleep(seconds*1000);
+				} 
+				else if (!this.isLeaderPhase && mainCmd.compareTo("CMDPREPARE") == 0){ // TODO: the condition
 					// If another request comes in middle of protocol, it rejected 
-					// TODO;
+					// TODO; -- The change for the multi Paxos
+					
 					valueSend = parList[1];
-					prepare();
+					// prepare();
+					if(comm.isLeader(this.nodeId)){
+						
+						debug("CURRENT LEADER: " + comm.getLeader() + "WRITING TO LOG VALUE: " + valueSend + " nodeId :" + this.nodeId ,level0);
+						// TODO: Write in log 
+					}else{
+						comm.send(cmd, this.nodeId, comm.getLeader());
+					}
+
 				}
 
 				else if (mainCmd.compareTo("PREPARE") == 0){
 					Integer fromId = Integer.parseInt(parList[1]);
 					Integer propPid = Integer.parseInt(parList[2]);
-					debug("Received Prepare " + propPid + " from " + fromId);
+					debug("Received Prepare " + propPid + " from " + fromId,level0);
 					promise(propPid, fromId);
 				}
 
@@ -227,21 +319,25 @@ public class Node extends Thread {
 					Integer fromId = Integer.parseInt(parList[1]);
 					Integer propPid = Integer.parseInt(parList[2]);
 					Boolean hasReceiverAccepted = parList.length > 3;
-					debug("Received Promise " + propPid + " " + curPropPid + " from " + fromId);
+					
 					if (propPid != curPropPid) {
-						debug("Ignoring promise for different proposal");
+						debug("Ignoring promise for different proposal ",level0);
 						continue;
 					}
+					// IF THE promise ID is from the lesser ID then the one it has currently promised To 
 					promisedIds.add(fromId);
 					
 					if (hasReceiverAccepted) {
 						Integer propIdAccepted = Integer.parseInt(parList[3]);
 						String valueAccepted = parList[4];
+						debug("Received Promise " + propPid + " " + curPropPid + " from " + fromId + " WITH VALUE; PRE: " + curMax + " CUR: " + valueAccepted,level0);
 						if (curMax == null) curMax = valueAccepted;
 						else {
-							assert ("a".compareTo("b") < 0);
 							curMax = (curMax.compareTo(valueAccepted) > 0 ? curMax : valueAccepted);
 						}
+						debug("Value Now: " + curMax, level0);
+					}else{
+						debug("Received Promise " + propPid + " " + curPropPid + " from " + fromId,level0);
 					}
 					
 					// Check Majority If majority then send 
@@ -265,33 +361,52 @@ public class Node extends Thread {
 					Integer fromId = Integer.parseInt(parList[1]);
 					Integer acceptPid = Integer.parseInt(parList[2]);
 					String valueAcc = parList[3]; 
-					debug("Got Acceptance " + curPropPid + " Value: " + valueAcc + " from " + fromId );
+					debug("Got Acceptance PROPID:" + curPropPid + " ValACC: " + valueAcc + " from " + fromId,level0 );
 					
 					if (acceptPid != curPropPid){
-						debug("Ignoring acceptance for different accept request");
+						debug("Ignoring acceptance for different accept request",level0);
 						continue;
 					}
 
 					if (!isAcceptMajority && comm.checkMajority(acceptCount)){
-						debug("Reached Majority " + acceptCount + " Acceptances " + curPropPid + " Value: " + valueAcc);
+						assert (curMax.compareTo(valueAcc) == 0);
+						isCompleted = true;
+						debug("Reached Majority " + acceptCount + " Acceptances " + curPropPid + " Value: " + valueAcc,level0);
 						isAcceptMajority = true;
 						isAcceptWait = false;
+						debug("CURRENT LEADER ELECTED : " + curMax,level0);
+						comm.setLeader(Integer.parseInt(curMax));
+						this.isLeaderPhase = false;
+						this.heartBeatReceived = Instant.now();
 						//TODO: SEND TO ALL
 					}
 				} 
+				else if (this.isLeaderPhase){
+						// Ignoring other msgs in this
+				}
+				else if (mainCmd.compareTo("HEARTBEAT") == 0 ){
+					Integer fromId = Integer.parseInt(parList[1]);
+					if(comm.isLeader(fromId)){
+						debug("RECEIVED HEARTBEAT FROM LEADER : " + fromId,level2);
+						this.heartBeatReceived = Instant.now();
+					}
+					
+				}
 				else if (mainCmd.compareTo("SOCKET_TIMEOUT") == 0 || mainCmd.compareTo("NACK") == 0 || mainCmd.compareTo("REJECT") == 0 ){
 					continue;
 				} 
 				else {
-					debug(mainCmd + " COMMAND NOT FOUND, IGNORING ");
+					debug(mainCmd + " COMMAND NOT FOUND, IGNORING ",level1);
 				}
 			}
 			// if (nodeId == 0) {
 			// 	prepare();
 			// }
 			
-
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

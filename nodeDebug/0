@@ -1,21 +1,87 @@
 0:Inside Node run 0
-8:Received Prepare 21 from 1
-9:Sending Promise 21 to 1
-10:Promise sent to 1
-11:Received Prepare 21 from 3
-12:Prepare 21 rejected from 3
-13:Promise sent to 3
-14:Received Prepare 21 from 2
-15:Prepare 21 rejected from 2
-16:Promise sent to 2
-66:Sending Accept 21 50
-78:Received Prepare 22 from 2
-79:Sending Promise 22 to 2 accepted 21 50
-80:Promise sent to 2
-83:Received Prepare 22 from 3
-84:Prepare 22 rejected from 3
-85:Promise sent to 3
-132:Received Prepare 23 from 2
-133:Sending Promise 23 to 2 accepted 22 50
-135:Promise sent to 2
-155:Sending Accept 23 50
+11:NODE 0 STARTING ELECTION
+12:Sending Prepare 105
+13:Received Prepare 107 from 2
+14:Sending Promise 107 to 2
+34:Received Prepare 106 from 1
+35:Prepare <= PID:106 PROMPID:107 rejected from 1
+41:Received Prepare 108 from 3
+42:Sending Promise Higher PID:108 to 3
+43:Received Prepare 105 from 0
+44:Prepare <= PID:105 PROMPID:108 rejected from 0
+45:Received Prepare 109 from 4
+46:Sending Promise Higher PID:109 to 4
+90:Sending Accept PROMPID:109 Val: 4 to 4
+92:Rejecting Accept-Request with lower PID: 107, My PROMID: 109 Val: 2
+113:Rejecting Accept-Request with lower PID: 108, My PROMID: 109 Val: 3
+134:PREPARE TIMEOUT : Pid 105 curVal :null
+135:Sending Prepare 110
+136:Received Prepare 111 from 1
+137:Sending Promise 111 to 1
+138:Received Prepare 112 from 2
+139:Sending Promise Higher PID:112 to 2
+135:Received Prepare 110 from 0
+136:Prepare <= PID:110 PROMPID:112 rejected from 0
+180:Received Prepare 113 from 3
+183:Sending Promise Higher PID:113 to 3
+186:Rejecting Accept-Request with lower PID: 111, My PROMID: 113 Val: 4
+188:Rejecting Accept-Request with lower PID: 112, My PROMID: 113 Val: 4
+203:Sending Accept PROMPID:113 Val: 3 to 3
+242:PREPARE TIMEOUT : Pid 110 curVal :null
+243:Sending Prepare 115
+251:Received Prepare 116 from 1
+252:Sending Promise 116 to 1
+256:Received Prepare 117 from 2
+257:Sending Promise Higher PID:117 to 2
+260:Received Prepare 115 from 0
+261:Prepare <= PID:115 PROMPID:117 rejected from 0
+283:PREPARE TIMEOUT : Pid 115 curVal :null
+284:Sending Prepare 120
+290:Received Prepare 120 from 0
+291:Sending Promise 120 to 0
+292:Received Promise 120 120 from 4 WITH VALUE; PRE: null CUR: 4
+293:Value Now: 4
+294:Received Promise 120 120 from 0
+301:Received Promise 120 120 from 2 WITH VALUE; PRE: 4 CUR: 4
+302:Value Now: 4
+314:Received Prepare 121 from 1
+315:Sending Promise Higher PID:121 to 1
+316:Received Promise 120 120 from 1
+322:Reached Majority of 4 Promises for proposal 120
+323:Sending Accept-Request to 4 curPROPPID:120 Val: 4
+325:Sending Accept-Request to 0 curPROPPID:120 Val: 4
+326:Sending Accept-Request to 2 curPROPPID:120 Val: 4
+327:Sending Accept-Request to 1 curPROPPID:120 Val: 4
+328:Received Promise 120 120 from 3 WITH VALUE; PRE: 4 CUR: 4
+329:Value Now: 4
+330:Rejecting Accept-Request with lower PID: 120, My PROMID: 121 Val: 4
+341:Sending Accept PROMPID:121 Val: 4 to 1
+352:Accept Timeout  Pid :120 curVal :4
+353:Sending Prepare 125
+354:Received Prepare 125 from 0
+355:Sending Promise 125 to 0
+356:Received Promise 125 125 from 0
+360:Received Promise 125 125 from 4 WITH VALUE; PRE: 4 CUR: 4
+361:Value Now: 4
+365:Received Promise 125 125 from 3 WITH VALUE; PRE: 4 CUR: 4
+366:Value Now: 4
+369:Received Promise 125 125 from 2 WITH VALUE; PRE: 4 CUR: 4
+370:Value Now: 4
+374:Reached Majority of 4 Promises for proposal 125
+375:Sending Accept-Request to 0 curPROPPID:125 Val: 4
+376:Sending Accept-Request to 4 curPROPPID:125 Val: 4
+378:Sending Accept-Request to 3 curPROPPID:125 Val: 4
+379:Sending Accept-Request to 2 curPROPPID:125 Val: 4
+380:Received Promise 125 125 from 1 WITH VALUE; PRE: 4 CUR: 4
+381:Value Now: 4
+382:Sending Accept PROMPID:125 Val: 4 to 0
+383:Got Acceptance PROPID:125 ValACC: 4 from 4
+384:Got Acceptance PROPID:125 ValACC: 4 from 0
+387:Got Acceptance PROPID:125 ValACC: 4 from 3
+388:Got Acceptance PROPID:125 ValACC: 4 from 2
+389:Reached Majority 4 Acceptances 125 Value: 4
+390:CURRENT LEADER ELECTED : 4
+395:RECEIVED HEARTBEAT FROM LEADER : 4
+397:RECEIVED HEARTBEAT FROM LEADER : 4
+403:RECEIVED HEARTBEAT FROM LEADER : 4
+412:RECEIVED HEARTBEAT FROM LEADER : 4
