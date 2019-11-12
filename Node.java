@@ -73,7 +73,7 @@ public class Node extends Thread {
 		
 		this.acceptCount = 0;
 		
-		writer = new PrintWriter("nodeDebug/"+nodeId,"UTF-8");
+		writer = new PrintWriter("nodeLog/"+nodeId,"UTF-8");
 		
 	}
 
