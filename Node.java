@@ -28,7 +28,7 @@ public class Node extends Thread {
 	ArrayList<Integer> promisedIds;
 	
 	// HARDCODED PARAMS
-	Duration mainTimeoutDuration = Duration.ofSeconds(2);
+	Duration mainTimeoutDuration = Duration.ofSeconds(10);
 	Duration secondaryTimeoutDuration = Duration.ofSeconds(0); 
 	Instant mainStartTime;
 	Instant secondaryStartTime;
@@ -102,12 +102,11 @@ public class Node extends Thread {
 		String heartbeatMsg = "HEARTBEAT:"+nodeId;
 		comm.sendAll(heartbeatMsg, nodeId); 
 	}
+
+	void increPropPid()throws IOException {
+		this.curPropPid = this.curPropPid + comm.getNumNodes();
+	}
 	
-	
-		void increPropPid()throws IOException {
-			this.curPropPid = this.curPropPid + comm.getNumNodes();
-		}
-		
 		void handlePrepareTimeout(String msg) throws IOException {
 			// curPropPid++;
 			increPropPid();
@@ -172,6 +171,9 @@ public class Node extends Thread {
 				comm.send_nack(nodeId, fromID); //TODO: For the propID nackMsg
 			} else {
 				if (isAccepted) {
+
+					/* CHANGE MULTI PAXOS */
+
 					// Sending Promised Msg with value
 					debug("Sending Promise PID:"+ propPid + " to " + fromID + " accepted PROMPID:" + curPromPid + " ValACC: " + valueAcc,level0);
 					String newpromiseMsg = promiseMsg +":"+curPromPid+":"+ valueAcc;
@@ -260,7 +262,7 @@ public class Node extends Thread {
 							curMax = valueSend;
 
 							isAcceptWait = true; // FIX
-							
+
 							for (Integer tosendId : promisedIds){
 								accept_request(tosendId, valueSend);
 							}
@@ -320,8 +322,9 @@ public class Node extends Thread {
 					Integer propPid = Integer.parseInt(parList[2]);
 					Boolean hasReceiverAccepted = parList.length > 3;
 					
-					if (propPid != curPropPid) {
-						debug("Ignoring promise for different proposal ",level0);
+					if (propPid.compareTo(curPropPid) != 0) {
+						// debug("Ignoring promise for different proposal ",level0);
+						debug("Ignoring promise for different proposal "+  " curPROPID:" + curPropPid + " PROPID:" + propPid + " " + (propPid != curPropPid) +" from " + fromId,level0);
 						continue;
 					}
 					// IF THE promise ID is from the lesser ID then the one it has currently promised To 
@@ -331,6 +334,7 @@ public class Node extends Thread {
 						Integer propIdAccepted = Integer.parseInt(parList[3]);
 						String valueAccepted = parList[4];
 						debug("Received Promise " + propPid + " " + curPropPid + " from " + fromId + " WITH VALUE; PRE: " + curMax + " CUR: " + valueAccepted,level0);
+						
 						if (curMax == null) curMax = valueAccepted;
 						else {
 							curMax = (curMax.compareTo(valueAccepted) > 0 ? curMax : valueAccepted);
@@ -364,7 +368,7 @@ public class Node extends Thread {
 					debug("Got Acceptance PROPID:" + curPropPid + " ValACC: " + valueAcc + " from " + fromId,level0 );
 					
 					if (acceptPid != curPropPid){
-						debug("Ignoring acceptance for different accept request",level0);
+						debug("Ignoring acceptance for different accept request" +  " curPROPID:" + curPropPid + " ACCPID:" + acceptPid + " ValS:" + valueAcc + " from " + fromId,level0);
 						continue;
 					}
 

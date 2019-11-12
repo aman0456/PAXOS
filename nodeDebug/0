@@ -1,87 +1,135 @@
 0:Inside Node run 0
-11:NODE 0 STARTING ELECTION
-12:Sending Prepare 105
-13:Received Prepare 107 from 2
-14:Sending Promise 107 to 2
-34:Received Prepare 106 from 1
-35:Prepare <= PID:106 PROMPID:107 rejected from 1
-41:Received Prepare 108 from 3
-42:Sending Promise Higher PID:108 to 3
-43:Received Prepare 105 from 0
-44:Prepare <= PID:105 PROMPID:108 rejected from 0
-45:Received Prepare 109 from 4
-46:Sending Promise Higher PID:109 to 4
-90:Sending Accept PROMPID:109 Val: 4 to 4
-92:Rejecting Accept-Request with lower PID: 107, My PROMID: 109 Val: 2
-113:Rejecting Accept-Request with lower PID: 108, My PROMID: 109 Val: 3
-134:PREPARE TIMEOUT : Pid 105 curVal :null
-135:Sending Prepare 110
-136:Received Prepare 111 from 1
-137:Sending Promise 111 to 1
+7:NODE 0 STARTING ELECTION
+8:Sending Prepare 105
+9:Received Prepare 107 from 2
+10:Sending Promise 107 to 2
+27:Received Prepare 105 from 0
+28:Prepare <= PID:105 PROMPID:107 rejected from 0
+29:Received Prepare 106 from 1
+30:Prepare <= PID:106 PROMPID:107 rejected from 1
+52:Received Prepare 108 from 3
+53:Sending Promise Higher PID:108 to 3
+60:Received Prepare 109 from 4
+61:Sending Promise Higher PID:109 to 4
+75:Rejecting Accept-Request with lower PID: 108, My PROMID: 109 Val: 3
+89:Rejecting Accept-Request with lower PID: 107, My PROMID: 109 Val: 2
+104:Sending Accept PROMPID:109 Val: 4 to 4
+126:PREPARE TIMEOUT : Pid 105 curVal :null
+127:Sending Prepare 110
+130:Received Prepare 111 from 1
+131:Sending Promise 111 to 1
+134:Received Prepare 110 from 0
+135:Prepare <= PID:110 PROMPID:111 rejected from 0
 138:Received Prepare 112 from 2
 139:Sending Promise Higher PID:112 to 2
-135:Received Prepare 110 from 0
-136:Prepare <= PID:110 PROMPID:112 rejected from 0
-180:Received Prepare 113 from 3
-183:Sending Promise Higher PID:113 to 3
-186:Rejecting Accept-Request with lower PID: 111, My PROMID: 113 Val: 4
-188:Rejecting Accept-Request with lower PID: 112, My PROMID: 113 Val: 4
-203:Sending Accept PROMPID:113 Val: 3 to 3
-242:PREPARE TIMEOUT : Pid 110 curVal :null
-243:Sending Prepare 115
-251:Received Prepare 116 from 1
-252:Sending Promise 116 to 1
-256:Received Prepare 117 from 2
-257:Sending Promise Higher PID:117 to 2
-260:Received Prepare 115 from 0
-261:Prepare <= PID:115 PROMPID:117 rejected from 0
-283:PREPARE TIMEOUT : Pid 115 curVal :null
-284:Sending Prepare 120
-290:Received Prepare 120 from 0
-291:Sending Promise 120 to 0
-292:Received Promise 120 120 from 4 WITH VALUE; PRE: null CUR: 4
-293:Value Now: 4
-294:Received Promise 120 120 from 0
-301:Received Promise 120 120 from 2 WITH VALUE; PRE: 4 CUR: 4
-302:Value Now: 4
-314:Received Prepare 121 from 1
-315:Sending Promise Higher PID:121 to 1
-316:Received Promise 120 120 from 1
-322:Reached Majority of 4 Promises for proposal 120
-323:Sending Accept-Request to 4 curPROPPID:120 Val: 4
-325:Sending Accept-Request to 0 curPROPPID:120 Val: 4
-326:Sending Accept-Request to 2 curPROPPID:120 Val: 4
-327:Sending Accept-Request to 1 curPROPPID:120 Val: 4
-328:Received Promise 120 120 from 3 WITH VALUE; PRE: 4 CUR: 4
-329:Value Now: 4
-330:Rejecting Accept-Request with lower PID: 120, My PROMID: 121 Val: 4
-341:Sending Accept PROMPID:121 Val: 4 to 1
-352:Accept Timeout  Pid :120 curVal :4
-353:Sending Prepare 125
-354:Received Prepare 125 from 0
-355:Sending Promise 125 to 0
-356:Received Promise 125 125 from 0
-360:Received Promise 125 125 from 4 WITH VALUE; PRE: 4 CUR: 4
-361:Value Now: 4
-365:Received Promise 125 125 from 3 WITH VALUE; PRE: 4 CUR: 4
+171:Received Prepare 113 from 3
+172:Sending Promise Higher PID:113 to 3
+184:Rejecting Accept-Request with lower PID: 111, My PROMID: 113 Val: 1
+199:Rejecting Accept-Request with lower PID: 112, My PROMID: 113 Val: 4
+215:Sending Accept PROMPID:113 Val: 4 to 3
+237:PREPARE TIMEOUT : Pid 110 curVal :null
+240:Sending Prepare 115
+244:Received Prepare 115 from 0
+245:Sending Promise 115 to 0
+251:Received Prepare 117 from 2
+252:Sending Promise Higher PID:117 to 2
+256:Received Prepare 116 from 1
+257:Prepare <= PID:116 PROMPID:117 rejected from 1
+262:Received Promise 115 115 from 0
+264:Received Promise 115 115 from 2
+266:Received Promise 115 115 from 4 WITH VALUE; PRE: null CUR: 4
+267:Value Now: 4
+270:Received Promise 115 115 from 1
+281:Reached Majority of 4 Promises for proposal 115
+282:Sending Accept-Request to 0 curPROPPID:115 Val: 4
+283:Sending Accept-Request to 2 curPROPPID:115 Val: 4
+285:Sending Accept-Request to 4 curPROPPID:115 Val: 4
+288:Sending Accept-Request to 1 curPROPPID:115 Val: 4
+290:Received Promise 115 115 from 3 WITH VALUE; PRE: 4 CUR: 4
+291:Value Now: 4
+292:Rejecting Accept-Request with lower PID: 115, My PROMID: 117 Val: 4
+314:Sending Accept PROMPID:117 Val: 4 to 2
+333:Accept Timeout  Pid :115 curVal :4
+334:Sending Prepare 120
+337:Received Prepare 120 from 0
+340:Sending Promise 120 to 0
+345:Received Prepare 121 from 1
+347:Sending Promise Higher PID:121 to 1
+350:Received Promise 120 120 from 0
+364:Received Promise 120 120 from 3 WITH VALUE; PRE: 4 CUR: 4
 366:Value Now: 4
-369:Received Promise 125 125 from 2 WITH VALUE; PRE: 4 CUR: 4
-370:Value Now: 4
-374:Reached Majority of 4 Promises for proposal 125
-375:Sending Accept-Request to 0 curPROPPID:125 Val: 4
-376:Sending Accept-Request to 4 curPROPPID:125 Val: 4
-378:Sending Accept-Request to 3 curPROPPID:125 Val: 4
-379:Sending Accept-Request to 2 curPROPPID:125 Val: 4
-380:Received Promise 125 125 from 1 WITH VALUE; PRE: 4 CUR: 4
-381:Value Now: 4
-382:Sending Accept PROMPID:125 Val: 4 to 0
-383:Got Acceptance PROPID:125 ValACC: 4 from 4
-384:Got Acceptance PROPID:125 ValACC: 4 from 0
-387:Got Acceptance PROPID:125 ValACC: 4 from 3
-388:Got Acceptance PROPID:125 ValACC: 4 from 2
-389:Reached Majority 4 Acceptances 125 Value: 4
-390:CURRENT LEADER ELECTED : 4
-395:RECEIVED HEARTBEAT FROM LEADER : 4
-397:RECEIVED HEARTBEAT FROM LEADER : 4
-403:RECEIVED HEARTBEAT FROM LEADER : 4
-412:RECEIVED HEARTBEAT FROM LEADER : 4
+374:Sending Accept PROMPID:121 Val: 4 to 1
+401:PREPARE TIMEOUT : Pid 120 curVal :4
+402:Sending Prepare 125
+406:Received Prepare 125 from 0
+407:Sending Promise 125 to 0
+410:Received Promise 125 125 from 1 WITH VALUE; PRE: 4 CUR: 4
+411:Value Now: 4
+414:Received Promise 125 125 from 0
+417:Received Promise 125 125 from 3 WITH VALUE; PRE: 4 CUR: 4
+418:Value Now: 4
+420:Received Promise 125 125 from 4 WITH VALUE; PRE: 4 CUR: 4
+422:Value Now: 4
+423:Reached Majority of 4 Promises for proposal 125
+424:Sending Accept-Request to 1 curPROPPID:125 Val: 4
+425:Sending Accept-Request to 0 curPROPPID:125 Val: 4
+426:Sending Accept-Request to 3 curPROPPID:125 Val: 4
+427:Sending Accept-Request to 4 curPROPPID:125 Val: 4
+428:Received Promise 125 125 from 2 WITH VALUE; PRE: 4 CUR: 4
+429:Value Now: 4
+431:Sending Accept PROMPID:125 Val: 4 to 0
+432:Got Acceptance PROPID:125 ValACC: 4 from 4
+433:Got Acceptance PROPID:125 ValACC: 4 from 0
+436:Got Acceptance PROPID:125 ValACC: 4 from 3
+437:Got Acceptance PROPID:125 ValACC: 4 from 1
+438:Reached Majority 4 Acceptances 125 Value: 4
+439:CURRENT LEADER ELECTED : 4
+441:RECEIVED HEARTBEAT FROM LEADER : 4
+446:RECEIVED HEARTBEAT FROM LEADER : 4
+453:RECEIVED HEARTBEAT FROM LEADER : 4
+458:RECEIVED HEARTBEAT FROM LEADER : 4
+464:RECEIVED HEARTBEAT FROM LEADER : 4
+471:RECEIVED HEARTBEAT FROM LEADER : 4
+480:RECEIVED HEARTBEAT FROM LEADER : 4
+482:RECEIVED HEARTBEAT FROM LEADER : 4
+488:RECEIVED HEARTBEAT FROM LEADER : 4
+498:RECEIVED HEARTBEAT FROM LEADER : 4
+500:RECEIVED HEARTBEAT FROM LEADER : 4
+507:RECEIVED HEARTBEAT FROM LEADER : 4
+515:RECEIVED HEARTBEAT FROM LEADER : 4
+518:RECEIVED HEARTBEAT FROM LEADER : 4
+524:RECEIVED HEARTBEAT FROM LEADER : 4
+529:RECEIVED HEARTBEAT FROM LEADER : 4
+534:RECEIVED HEARTBEAT FROM LEADER : 4
+539:RECEIVED HEARTBEAT FROM LEADER : 4
+546:RECEIVED HEARTBEAT FROM LEADER : 4
+551:RECEIVED HEARTBEAT FROM LEADER : 4
+557:RECEIVED HEARTBEAT FROM LEADER : 4
+563:RECEIVED HEARTBEAT FROM LEADER : 4
+569:RECEIVED HEARTBEAT FROM LEADER : 4
+575:RECEIVED HEARTBEAT FROM LEADER : 4
+581:RECEIVED HEARTBEAT FROM LEADER : 4
+586:RECEIVED HEARTBEAT FROM LEADER : 4
+593:RECEIVED HEARTBEAT FROM LEADER : 4
+598:RECEIVED HEARTBEAT FROM LEADER : 4
+604:RECEIVED HEARTBEAT FROM LEADER : 4
+609:RECEIVED HEARTBEAT FROM LEADER : 4
+615:RECEIVED HEARTBEAT FROM LEADER : 4
+620:RECEIVED HEARTBEAT FROM LEADER : 4
+626:RECEIVED HEARTBEAT FROM LEADER : 4
+632:RECEIVED HEARTBEAT FROM LEADER : 4
+639:RECEIVED HEARTBEAT FROM LEADER : 4
+644:RECEIVED HEARTBEAT FROM LEADER : 4
+650:RECEIVED HEARTBEAT FROM LEADER : 4
+656:RECEIVED HEARTBEAT FROM LEADER : 4
+662:RECEIVED HEARTBEAT FROM LEADER : 4
+668:RECEIVED HEARTBEAT FROM LEADER : 4
+674:RECEIVED HEARTBEAT FROM LEADER : 4
+680:RECEIVED HEARTBEAT FROM LEADER : 4
+685:RECEIVED HEARTBEAT FROM LEADER : 4
+693:RECEIVED HEARTBEAT FROM LEADER : 4
+698:RECEIVED HEARTBEAT FROM LEADER : 4
+705:RECEIVED HEARTBEAT FROM LEADER : 4
+708:RECEIVED HEARTBEAT FROM LEADER : 4
+714:RECEIVED HEARTBEAT FROM LEADER : 4
+720:RECEIVED HEARTBEAT FROM LEADER : 4
