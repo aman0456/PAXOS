@@ -1,1 +1,423 @@
-3:Inside Node run 3
+0:Inside Node run 3
+10:NODE 3 STARTING ELECTION
+12:Sending Prepare 301
+25:Received Prepare 201 from 2
+26:Sending Promise 201 to 2
+27:Received Prepare 1 from 0
+29:Prepare <= PID:1 PROMPID:201 rejected from 0
+46:Received Prepare 301 from 3
+47:Sending Promise Higher PID:301 to 3
+52:Received Prepare 401 from 4
+53:Sending Promise Higher PID:401 to 4
+54:Received Prepare 101 from 1
+55:Prepare <= PID:101 PROMPID:401 rejected from 1
+57:Received Promise 301 301 from 1
+60:Received Promise 301 301 from 0
+74:Received Promise 301 301 from 3
+75:Received Promise 301 301 from 2
+76:Reached Majority of 4 Promises for proposal 301
+80:Sending Accept-Request to 1 curPROPPID:301 Val: 3
+82:Sending Accept-Request to 0 curPROPPID:301 Val: 3
+85:Sending Accept-Request to 3 curPROPPID:301 Val: 3
+89:Sending Accept-Request to 2 curPROPPID:301 Val: 3
+94:Received Promise 301 301 from 4
+97:Rejecting Accept-Request with lower PID: 301, My PROMID: 401 Val: 3
+100:Sending Accept PROMPID:401 Val: 4 to 4
+103:Rejecting Accept-Request with lower PID: 201, My PROMID: 401 Val: 2
+129:Received Prepare 2 from 0
+130:Prepare <= PID:2 PROMPID:401 rejected from 0
+133:Received Prepare 102 from 1
+135:Prepare <= PID:102 PROMPID:401 rejected from 1
+146:Accept Timeout  Pid :301 curVal :4
+147:Sending Prepare 302
+148:Received Prepare 302 from 3
+149:Sending Promise 302 to 3
+151:Received Promise 302 302 from 3
+156:Received Promise 302 302 from 0 WITH VALUE; PRE: 4 CUR: 4
+158:Value Now: 4
+161:Received Promise 302 302 from 1 WITH VALUE; PRE: 4 CUR: 4
+162:Value Now: 4
+164:Received Prepare 202 from 2
+165:Prepare <= PID:202 PROMPID:302 rejected from 2
+168:Received Promise 302 302 from 2
+175:Reached Majority of 4 Promises for proposal 302
+176:Sending Accept-Request to 3 curPROPPID:302 Val: 4
+177:Sending Accept-Request to 0 curPROPPID:302 Val: 4
+178:Sending Accept-Request to 1 curPROPPID:302 Val: 4
+179:Sending Accept-Request to 2 curPROPPID:302 Val: 4
+180:Sending Accept PROMPID:302 Val: 4 to 3
+181:Got Acceptance PROPID:302 ValACC: 4 from 3
+183:Got Acceptance PROPID:302 ValACC: 4 from 0
+186:Got Acceptance PROPID:302 ValACC: 4 from 1
+187:Got Acceptance PROPID:302 ValACC: 4 from 2
+188:Reached Majority 4 Acceptances 302 Value: 4
+189:CURRENT LEADER ELECTED : 4
+191:RECEIVED HEARTBEAT FROM LEADER : 4
+193:RECEIVED HEARTBEAT FROM LEADER : 4
+201:Received Prepare 3 from 0
+202:Prepare <= PID:3 PROMPID:302 rejected from 0
+221:Received Prepare 103 from 1
+222:Prepare <= PID:103 PROMPID:302 rejected from 1
+227:Received Prepare 203 from 2
+233:Prepare <= PID:203 PROMPID:302 rejected from 2
+242:RECEIVED HEARTBEAT FROM LEADER : 4
+245:RECEIVED HEARTBEAT FROM LEADER : 4
+252:Received Prepare 4 from 0
+254:Prepare <= PID:4 PROMPID:302 rejected from 0
+269:Received Prepare 104 from 1
+271:Prepare <= PID:104 PROMPID:302 rejected from 1
+279:Received Prepare 204 from 2
+283:Prepare <= PID:204 PROMPID:302 rejected from 2
+291:RECEIVED HEARTBEAT FROM LEADER : 4
+294:RECEIVED HEARTBEAT FROM LEADER : 4
+305:Received Prepare 5 from 0
+306:Prepare <= PID:5 PROMPID:302 rejected from 0
+315:Received Prepare 105 from 1
+316:Prepare <= PID:105 PROMPID:302 rejected from 1
+327:Received Prepare 205 from 2
+328:Prepare <= PID:205 PROMPID:302 rejected from 2
+340:RECEIVED HEARTBEAT FROM LEADER : 4
+344:RECEIVED HEARTBEAT FROM LEADER : 4
+354:Received Prepare 6 from 0
+355:Prepare <= PID:6 PROMPID:302 rejected from 0
+362:Received Prepare 106 from 1
+363:Prepare <= PID:106 PROMPID:302 rejected from 1
+380:Received Prepare 206 from 2
+382:Prepare <= PID:206 PROMPID:302 rejected from 2
+391:RECEIVED HEARTBEAT FROM LEADER : 4
+395:RECEIVED HEARTBEAT FROM LEADER : 4
+399:Received Prepare 7 from 0
+408:Prepare <= PID:7 PROMPID:302 rejected from 0
+420:Received Prepare 107 from 1
+421:Prepare <= PID:107 PROMPID:302 rejected from 1
+439:Received Prepare 207 from 2
+440:Prepare <= PID:207 PROMPID:302 rejected from 2
+442:RECEIVED HEARTBEAT FROM LEADER : 4
+445:RECEIVED HEARTBEAT FROM LEADER : 4
+455:Received Prepare 8 from 0
+456:Prepare <= PID:8 PROMPID:302 rejected from 0
+466:Received Prepare 108 from 1
+467:Prepare <= PID:108 PROMPID:302 rejected from 1
+482:Received Prepare 208 from 2
+483:Prepare <= PID:208 PROMPID:302 rejected from 2
+494:RECEIVED HEARTBEAT FROM LEADER : 4
+496:RECEIVED HEARTBEAT FROM LEADER : 4
+506:Received Prepare 9 from 0
+507:Prepare <= PID:9 PROMPID:302 rejected from 0
+520:Received Prepare 109 from 1
+521:Prepare <= PID:109 PROMPID:302 rejected from 1
+531:Received Prepare 209 from 2
+534:Prepare <= PID:209 PROMPID:302 rejected from 2
+544:RECEIVED HEARTBEAT FROM LEADER : 4
+547:RECEIVED HEARTBEAT FROM LEADER : 4
+555:Received Prepare 10 from 0
+556:Prepare <= PID:10 PROMPID:302 rejected from 0
+564:Received Prepare 110 from 1
+565:Prepare <= PID:110 PROMPID:302 rejected from 1
+578:Received Prepare 210 from 2
+580:Prepare <= PID:210 PROMPID:302 rejected from 2
+593:RECEIVED HEARTBEAT FROM LEADER : 4
+596:RECEIVED HEARTBEAT FROM LEADER : 4
+602:Received Prepare 11 from 0
+603:Prepare <= PID:11 PROMPID:302 rejected from 0
+617:Received Prepare 111 from 1
+618:Prepare <= PID:111 PROMPID:302 rejected from 1
+639:Received Prepare 211 from 2
+640:Prepare <= PID:211 PROMPID:302 rejected from 2
+642:RECEIVED HEARTBEAT FROM LEADER : 4
+646:RECEIVED HEARTBEAT FROM LEADER : 4
+656:Received Prepare 12 from 0
+657:Prepare <= PID:12 PROMPID:302 rejected from 0
+667:Received Prepare 112 from 1
+668:Prepare <= PID:112 PROMPID:302 rejected from 1
+686:Received Prepare 212 from 2
+687:Prepare <= PID:212 PROMPID:302 rejected from 2
+693:RECEIVED HEARTBEAT FROM LEADER : 4
+696:RECEIVED HEARTBEAT FROM LEADER : 4
+706:Received Prepare 13 from 0
+707:Prepare <= PID:13 PROMPID:302 rejected from 0
+713:Received Prepare 113 from 1
+715:Prepare <= PID:113 PROMPID:302 rejected from 1
+734:Received Prepare 213 from 2
+735:Prepare <= PID:213 PROMPID:302 rejected from 2
+744:RECEIVED HEARTBEAT FROM LEADER : 4
+747:RECEIVED HEARTBEAT FROM LEADER : 4
+752:Received Prepare 14 from 0
+756:Prepare <= PID:14 PROMPID:302 rejected from 0
+769:Received Prepare 114 from 1
+771:Prepare <= PID:114 PROMPID:302 rejected from 1
+785:Received Prepare 214 from 2
+786:Prepare <= PID:214 PROMPID:302 rejected from 2
+795:RECEIVED HEARTBEAT FROM LEADER : 4
+805:Received Prepare 15 from 0
+806:Prepare <= PID:15 PROMPID:302 rejected from 0
+808:RECEIVED HEARTBEAT FROM LEADER : 4
+815:Received Prepare 115 from 1
+817:Prepare <= PID:115 PROMPID:302 rejected from 1
+838:Received Prepare 215 from 2
+839:Prepare <= PID:215 PROMPID:302 rejected from 2
+846:RECEIVED HEARTBEAT FROM LEADER : 4
+849:Received Prepare 16 from 0
+851:Prepare <= PID:16 PROMPID:302 rejected from 0
+861:RECEIVED HEARTBEAT FROM LEADER : 4
+873:Received Prepare 116 from 1
+874:Prepare <= PID:116 PROMPID:302 rejected from 1
+888:Received Prepare 216 from 2
+889:Prepare <= PID:216 PROMPID:302 rejected from 2
+896:RECEIVED HEARTBEAT FROM LEADER : 4
+907:Received Prepare 17 from 0
+908:Prepare <= PID:17 PROMPID:302 rejected from 0
+911:RECEIVED HEARTBEAT FROM LEADER : 4
+921:Received Prepare 117 from 1
+922:Prepare <= PID:117 PROMPID:302 rejected from 1
+930:Received Prepare 217 from 2
+932:Prepare <= PID:217 PROMPID:302 rejected from 2
+946:RECEIVED HEARTBEAT FROM LEADER : 4
+954:Received Prepare 18 from 0
+955:Prepare <= PID:18 PROMPID:302 rejected from 0
+960:RECEIVED HEARTBEAT FROM LEADER : 4
+971:Received Prepare 118 from 1
+972:Prepare <= PID:118 PROMPID:302 rejected from 1
+988:Received Prepare 218 from 2
+989:Prepare <= PID:218 PROMPID:302 rejected from 2
+996:RECEIVED HEARTBEAT FROM LEADER : 4
+999:Received Prepare 19 from 0
+1002:Prepare <= PID:19 PROMPID:302 rejected from 0
+1010:RECEIVED HEARTBEAT FROM LEADER : 4
+1017:Received Prepare 119 from 1
+1019:Prepare <= PID:119 PROMPID:302 rejected from 1
+1032:Received Prepare 219 from 2
+1034:Prepare <= PID:219 PROMPID:302 rejected from 2
+1045:RECEIVED HEARTBEAT FROM LEADER : 4
+1055:Received Prepare 20 from 0
+1057:Prepare <= PID:20 PROMPID:302 rejected from 0
+1061:RECEIVED HEARTBEAT FROM LEADER : 4
+1065:Received Prepare 120 from 1
+1067:Prepare <= PID:120 PROMPID:302 rejected from 1
+1086:Received Prepare 220 from 2
+1087:Prepare <= PID:220 PROMPID:302 rejected from 2
+1095:RECEIVED HEARTBEAT FROM LEADER : 4
+1108:Received Prepare 21 from 0
+1109:Prepare <= PID:21 PROMPID:302 rejected from 0
+1112:RECEIVED HEARTBEAT FROM LEADER : 4
+1115:Received Prepare 121 from 1
+1117:Prepare <= PID:121 PROMPID:302 rejected from 1
+1131:Received Prepare 221 from 2
+1134:Prepare <= PID:221 PROMPID:302 rejected from 2
+1147:RECEIVED HEARTBEAT FROM LEADER : 4
+1158:Received Prepare 22 from 0
+1159:Prepare <= PID:22 PROMPID:302 rejected from 0
+1163:RECEIVED HEARTBEAT FROM LEADER : 4
+1168:Received Prepare 122 from 1
+1171:Prepare <= PID:122 PROMPID:302 rejected from 1
+1192:Received Prepare 222 from 2
+1193:Prepare <= PID:222 PROMPID:302 rejected from 2
+1198:RECEIVED HEARTBEAT FROM LEADER : 4
+1205:Received Prepare 23 from 0
+1207:Prepare <= PID:23 PROMPID:302 rejected from 0
+1213:RECEIVED HEARTBEAT FROM LEADER : 4
+1219:Received Prepare 123 from 1
+1220:Prepare <= PID:123 PROMPID:302 rejected from 1
+1238:Received Prepare 223 from 2
+1240:Prepare <= PID:223 PROMPID:302 rejected from 2
+1249:RECEIVED HEARTBEAT FROM LEADER : 4
+1256:Received Prepare 24 from 0
+1257:Prepare <= PID:24 PROMPID:302 rejected from 0
+1264:RECEIVED HEARTBEAT FROM LEADER : 4
+1272:Received Prepare 124 from 1
+1273:Prepare <= PID:124 PROMPID:302 rejected from 1
+1293:Received Prepare 224 from 2
+1295:Prepare <= PID:224 PROMPID:302 rejected from 2
+1300:RECEIVED HEARTBEAT FROM LEADER : 4
+1312:Received Prepare 25 from 0
+1313:Prepare <= PID:25 PROMPID:302 rejected from 0
+1316:RECEIVED HEARTBEAT FROM LEADER : 4
+1330:Received Prepare 125 from 1
+1331:Prepare <= PID:125 PROMPID:302 rejected from 1
+1336:Received Prepare 225 from 2
+1338:Prepare <= PID:225 PROMPID:302 rejected from 2
+1350:RECEIVED HEARTBEAT FROM LEADER : 4
+1357:Received Prepare 26 from 0
+1359:Prepare <= PID:26 PROMPID:302 rejected from 0
+1367:RECEIVED HEARTBEAT FROM LEADER : 4
+1379:Received Prepare 126 from 1
+1380:Prepare <= PID:126 PROMPID:302 rejected from 1
+1392:Received Prepare 226 from 2
+1393:Prepare <= PID:226 PROMPID:302 rejected from 2
+1402:RECEIVED HEARTBEAT FROM LEADER : 4
+1409:Received Prepare 27 from 0
+1410:Prepare <= PID:27 PROMPID:302 rejected from 0
+1423:Received Prepare 127 from 1
+1424:Prepare <= PID:127 PROMPID:302 rejected from 1
+1433:RECEIVED HEARTBEAT FROM LEADER : 4
+1439:Received Prepare 227 from 2
+1440:Prepare <= PID:227 PROMPID:302 rejected from 2
+1452:RECEIVED HEARTBEAT FROM LEADER : 4
+1465:Received Prepare 28 from 0
+1466:Prepare <= PID:28 PROMPID:302 rejected from 0
+1476:Received Prepare 128 from 1
+1477:Prepare <= PID:128 PROMPID:302 rejected from 1
+1484:RECEIVED HEARTBEAT FROM LEADER : 4
+1492:Received Prepare 228 from 2
+1493:Prepare <= PID:228 PROMPID:302 rejected from 2
+1504:RECEIVED HEARTBEAT FROM LEADER : 4
+1509:Received Prepare 29 from 0
+1511:Prepare <= PID:29 PROMPID:302 rejected from 0
+1521:Received Prepare 129 from 1
+1523:Prepare <= PID:129 PROMPID:302 rejected from 1
+1532:RECEIVED HEARTBEAT FROM LEADER : 4
+1547:Received Prepare 229 from 2
+1549:Prepare <= PID:229 PROMPID:302 rejected from 2
+1552:RECEIVED HEARTBEAT FROM LEADER : 4
+1565:Received Prepare 30 from 0
+1566:Prepare <= PID:30 PROMPID:302 rejected from 0
+1577:Received Prepare 130 from 1
+1579:Prepare <= PID:130 PROMPID:302 rejected from 1
+1584:RECEIVED HEARTBEAT FROM LEADER : 4
+1600:Received Prepare 230 from 2
+1601:Prepare <= PID:230 PROMPID:302 rejected from 2
+1604:RECEIVED HEARTBEAT FROM LEADER : 4
+1611:Received Prepare 31 from 0
+1612:Prepare <= PID:31 PROMPID:302 rejected from 0
+1630:Received Prepare 131 from 1
+1631:Prepare <= PID:131 PROMPID:302 rejected from 1
+1634:RECEIVED HEARTBEAT FROM LEADER : 4
+1639:Received Prepare 231 from 2
+1641:Prepare <= PID:231 PROMPID:302 rejected from 2
+1654:RECEIVED HEARTBEAT FROM LEADER : 4
+1659:Received Prepare 32 from 0
+1661:Prepare <= PID:32 PROMPID:302 rejected from 0
+1677:Received Prepare 132 from 1
+1678:Prepare <= PID:132 PROMPID:302 rejected from 1
+1684:RECEIVED HEARTBEAT FROM LEADER : 4
+1696:Received Prepare 232 from 2
+1697:Prepare <= PID:232 PROMPID:302 rejected from 2
+1704:RECEIVED HEARTBEAT FROM LEADER : 4
+1716:Received Prepare 33 from 0
+1717:Prepare <= PID:33 PROMPID:302 rejected from 0
+1731:Received Prepare 133 from 1
+1732:Prepare <= PID:133 PROMPID:302 rejected from 1
+1735:RECEIVED HEARTBEAT FROM LEADER : 4
+1751:Received Prepare 233 from 2
+1752:Prepare <= PID:233 PROMPID:302 rejected from 2
+1755:RECEIVED HEARTBEAT FROM LEADER : 4
+1766:Received Prepare 34 from 0
+1768:Prepare <= PID:34 PROMPID:302 rejected from 0
+1780:Received Prepare 134 from 1
+1781:Prepare <= PID:134 PROMPID:302 rejected from 1
+1786:RECEIVED HEARTBEAT FROM LEADER : 4
+1792:Received Prepare 234 from 2
+1795:Prepare <= PID:234 PROMPID:302 rejected from 2
+1806:RECEIVED HEARTBEAT FROM LEADER : 4
+1810:Received Prepare 35 from 0
+1812:Prepare <= PID:35 PROMPID:302 rejected from 0
+1833:Received Prepare 135 from 1
+1834:Prepare <= PID:135 PROMPID:302 rejected from 1
+1836:RECEIVED HEARTBEAT FROM LEADER : 4
+1841:Received Prepare 235 from 2
+1844:Prepare <= PID:235 PROMPID:302 rejected from 2
+1857:RECEIVED HEARTBEAT FROM LEADER : 4
+1868:Received Prepare 36 from 0
+1869:Prepare <= PID:36 PROMPID:302 rejected from 0
+1878:Received Prepare 136 from 1
+1880:Prepare <= PID:136 PROMPID:302 rejected from 1
+1887:RECEIVED HEARTBEAT FROM LEADER : 4
+1895:Received Prepare 236 from 2
+1896:Prepare <= PID:236 PROMPID:302 rejected from 2
+1906:RECEIVED HEARTBEAT FROM LEADER : 4
+1915:Received Prepare 37 from 0
+1916:Prepare <= PID:37 PROMPID:302 rejected from 0
+1922:Received Prepare 137 from 1
+1926:Prepare <= PID:137 PROMPID:302 rejected from 1
+1936:RECEIVED HEARTBEAT FROM LEADER : 4
+1942:Received Prepare 237 from 2
+1945:Prepare <= PID:237 PROMPID:302 rejected from 2
+1955:RECEIVED HEARTBEAT FROM LEADER : 4
+1958:Received Prepare 38 from 0
+1960:Prepare <= PID:38 PROMPID:302 rejected from 0
+1979:Received Prepare 138 from 1
+1980:Prepare <= PID:138 PROMPID:302 rejected from 1
+1984:RECEIVED HEARTBEAT FROM LEADER : 4
+1989:Received Prepare 238 from 2
+1991:Prepare <= PID:238 PROMPID:302 rejected from 2
+2004:RECEIVED HEARTBEAT FROM LEADER : 4
+2007:Received Prepare 39 from 0
+2011:Prepare <= PID:39 PROMPID:302 rejected from 0
+2023:Received Prepare 139 from 1
+2024:Prepare <= PID:139 PROMPID:302 rejected from 1
+2033:RECEIVED HEARTBEAT FROM LEADER : 4
+2039:Received Prepare 239 from 2
+2040:Prepare <= PID:239 PROMPID:302 rejected from 2
+2052:RECEIVED HEARTBEAT FROM LEADER : 4
+2059:Received Prepare 40 from 0
+2060:Prepare <= PID:40 PROMPID:302 rejected from 0
+2077:Received Prepare 140 from 1
+2078:Prepare <= PID:140 PROMPID:302 rejected from 1
+2083:RECEIVED HEARTBEAT FROM LEADER : 4
+2087:Received Prepare 240 from 2
+2090:Prepare <= PID:240 PROMPID:302 rejected from 2
+2103:RECEIVED HEARTBEAT FROM LEADER : 4
+2110:Received Prepare 41 from 0
+2111:Prepare <= PID:41 PROMPID:302 rejected from 0
+2130:Received Prepare 141 from 1
+2131:Prepare <= PID:141 PROMPID:302 rejected from 1
+2134:RECEIVED HEARTBEAT FROM LEADER : 4
+2139:Received Prepare 241 from 2
+2140:Prepare <= PID:241 PROMPID:302 rejected from 2
+2152:RECEIVED HEARTBEAT FROM LEADER : 4
+2163:Received Prepare 42 from 0
+2165:Prepare <= PID:42 PROMPID:302 rejected from 0
+2177:Received Prepare 142 from 1
+2178:Prepare <= PID:142 PROMPID:302 rejected from 1
+2183:RECEIVED HEARTBEAT FROM LEADER : 4
+2191:Received Prepare 242 from 2
+2192:Prepare <= PID:242 PROMPID:302 rejected from 2
+2203:RECEIVED HEARTBEAT FROM LEADER : 4
+2215:Received Prepare 43 from 0
+2216:Prepare <= PID:43 PROMPID:302 rejected from 0
+2223:Received Prepare 143 from 1
+2224:Prepare <= PID:143 PROMPID:302 rejected from 1
+2234:RECEIVED HEARTBEAT FROM LEADER : 4
+2242:Received Prepare 243 from 2
+2243:Prepare <= PID:243 PROMPID:302 rejected from 2
+2254:RECEIVED HEARTBEAT FROM LEADER : 4
+2266:Received Prepare 44 from 0
+2267:Prepare <= PID:44 PROMPID:302 rejected from 0
+2274:Received Prepare 144 from 1
+2275:Prepare <= PID:144 PROMPID:302 rejected from 1
+2285:RECEIVED HEARTBEAT FROM LEADER : 4
+2291:Received Prepare 244 from 2
+2292:Prepare <= PID:244 PROMPID:302 rejected from 2
+2305:RECEIVED HEARTBEAT FROM LEADER : 4
+2312:Received Prepare 45 from 0
+2313:Prepare <= PID:45 PROMPID:302 rejected from 0
+2332:Received Prepare 145 from 1
+2333:Prepare <= PID:145 PROMPID:302 rejected from 1
+2336:RECEIVED HEARTBEAT FROM LEADER : 4
+2347:Received Prepare 245 from 2
+2349:Prepare <= PID:245 PROMPID:302 rejected from 2
+2355:RECEIVED HEARTBEAT FROM LEADER : 4
+2366:Received Prepare 46 from 0
+2367:Prepare <= PID:46 PROMPID:302 rejected from 0
+2379:Received Prepare 146 from 1
+2380:Prepare <= PID:146 PROMPID:302 rejected from 1
+2386:RECEIVED HEARTBEAT FROM LEADER : 4
+2393:Received Prepare 246 from 2
+2394:Prepare <= PID:246 PROMPID:302 rejected from 2
+2406:RECEIVED HEARTBEAT FROM LEADER : 4
+2418:Received Prepare 47 from 0
+2419:Prepare <= PID:47 PROMPID:302 rejected from 0
+2430:Received Prepare 147 from 1
+2431:Prepare <= PID:147 PROMPID:302 rejected from 1
+2437:RECEIVED HEARTBEAT FROM LEADER : 4
+2442:Received Prepare 247 from 2
+2444:Prepare <= PID:247 PROMPID:302 rejected from 2
+2457:RECEIVED HEARTBEAT FROM LEADER : 4
+2469:Received Prepare 48 from 0
+2470:Prepare <= PID:48 PROMPID:302 rejected from 0
+2481:Received Prepare 148 from 1
+2482:Prepare <= PID:148 PROMPID:302 rejected from 1
+2487:RECEIVED HEARTBEAT FROM LEADER : 4
+2497:Received Prepare 248 from 2
+2498:Prepare <= PID:248 PROMPID:302 rejected from 2
+2507:RECEIVED HEARTBEAT FROM LEADER : 4

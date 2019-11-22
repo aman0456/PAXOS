@@ -16,7 +16,7 @@ import java.util.Map.Entry;
 public class Communication {
     private static Communication comm = null;
     static Integer numNodes = 0;
-    Integer receiveTimeout = 2000; // HARDCODED PARAMS
+    Integer receiveTimeout = 2; // HARDCODED PARAMS
     Map<Integer, InetAddress> nodesIp;
     Map<Integer, Integer> sendingPort;
     Map<Integer, Integer> receivingPort;
@@ -50,6 +50,7 @@ public class Communication {
 
     // public Boolean getisLeaderPhase(){    return this.isLeaderPhase; }
     // public void setisLeaderPhase(Boolean b){    this.isLeaderPhase= b; }
+    public void resetLeader(){ this.leader = -1;}
 
 
     public static Communication getInstance() {

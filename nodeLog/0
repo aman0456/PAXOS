@@ -1,1 +1,343 @@
-1:Inside Node run 0
+0:Inside Node run 0
+6:NODE 0 STARTING ELECTION
+7:Sending Prepare 1
+23:Received Prepare 201 from 2
+24:Sending Promise 201 to 2
+28:Received Prepare 1 from 0
+31:Prepare <= PID:1 PROMPID:201 rejected from 0
+36:Received Prepare 301 from 3
+37:Sending Promise Higher PID:301 to 3
+40:Received Prepare 401 from 4
+41:Sending Promise Higher PID:401 to 4
+42:Received Prepare 101 from 1
+43:Prepare <= PID:101 PROMPID:401 rejected from 1
+84:Sending Accept PROMPID:401 Val: 4 to 4
+86:Rejecting Accept-Request with lower PID: 301, My PROMID: 401 Val: 3
+104:Rejecting Accept-Request with lower PID: 201, My PROMID: 401 Val: 2
+118:PREPARE TIMEOUT : Pid 1 curVal :4
+119:Sending Prepare 2
+120:Received Prepare 2 from 0
+123:Sending Promise 2 to 0
+126:Received Promise 2 2 from 0
+142:Received Prepare 102 from 1
+143:Sending Promise PID:102 to 1 accepted PROMPID:2 ValACC: 4
+154:Received Prepare 302 from 3
+155:Sending Promise PID:302 to 3 accepted PROMPID:102 ValACC: 4
+169:Received Prepare 202 from 2
+170:Prepare <= PID:202 PROMPID:302 rejected from 2
+182:Sending Accept PROMPID:302 Val: 4 to 3
+195:PREPARE TIMEOUT : Pid 2 curVal :4
+196:Sending Prepare 3
+205:Received Prepare 3 from 0
+206:Sending Promise 3 to 0
+207:Received Promise 3 3 from 0
+211:Received Prepare 103 from 1
+213:Sending Promise PID:103 to 1 accepted PROMPID:3 ValACC: 4
+225:Received Prepare 203 from 2
+235:Sending Promise PID:203 to 2 accepted PROMPID:103 ValACC: 4
+246:PREPARE TIMEOUT : Pid 3 curVal :4
+247:Sending Prepare 4
+250:Received Prepare 4 from 0
+251:Sending Promise 4 to 0
+252:Received Promise 4 4 from 0
+261:Received Prepare 104 from 1
+262:Sending Promise PID:104 to 1 accepted PROMPID:4 ValACC: 4
+274:Received Prepare 204 from 2
+275:Sending Promise PID:204 to 2 accepted PROMPID:104 ValACC: 4
+295:PREPARE TIMEOUT : Pid 4 curVal :4
+296:Sending Prepare 5
+298:Received Prepare 5 from 0
+299:Sending Promise 5 to 0
+300:Received Promise 5 5 from 0
+309:Received Prepare 105 from 1
+317:Sending Promise PID:105 to 1 accepted PROMPID:5 ValACC: 4
+329:Received Prepare 205 from 2
+330:Sending Promise PID:205 to 2 accepted PROMPID:105 ValACC: 4
+345:PREPARE TIMEOUT : Pid 5 curVal :4
+346:Sending Prepare 6
+348:Received Prepare 6 from 0
+350:Sending Promise 6 to 0
+351:Received Promise 6 6 from 0
+365:Received Prepare 106 from 1
+366:Sending Promise PID:106 to 1 accepted PROMPID:6 ValACC: 4
+375:Received Prepare 206 from 2
+377:Sending Promise PID:206 to 2 accepted PROMPID:106 ValACC: 4
+396:PREPARE TIMEOUT : Pid 6 curVal :4
+397:Sending Prepare 7
+400:Received Prepare 7 from 0
+401:Sending Promise 7 to 0
+402:Received Promise 7 7 from 0
+414:Received Prepare 107 from 1
+415:Sending Promise PID:107 to 1 accepted PROMPID:7 ValACC: 4
+426:Received Prepare 207 from 2
+427:Sending Promise PID:207 to 2 accepted PROMPID:107 ValACC: 4
+447:PREPARE TIMEOUT : Pid 7 curVal :4
+448:Sending Prepare 8
+453:Received Prepare 8 from 0
+454:Sending Promise 8 to 0
+459:Received Promise 8 8 from 0
+462:Received Prepare 108 from 1
+463:Sending Promise PID:108 to 1 accepted PROMPID:8 ValACC: 4
+477:Received Prepare 208 from 2
+479:Sending Promise PID:208 to 2 accepted PROMPID:108 ValACC: 4
+498:PREPARE TIMEOUT : Pid 8 curVal :4
+499:Sending Prepare 9
+500:Received Prepare 9 from 0
+501:Sending Promise 9 to 0
+508:Received Promise 9 9 from 0
+515:Received Prepare 109 from 1
+517:Sending Promise PID:109 to 1 accepted PROMPID:9 ValACC: 4
+528:Received Prepare 209 from 2
+533:Sending Promise PID:209 to 2 accepted PROMPID:109 ValACC: 4
+548:PREPARE TIMEOUT : Pid 9 curVal :4
+549:Sending Prepare 10
+550:Received Prepare 10 from 0
+551:Sending Promise 10 to 0
+552:Received Promise 10 10 from 0
+567:Received Prepare 110 from 1
+571:Sending Promise PID:110 to 1 accepted PROMPID:10 ValACC: 4
+583:Received Prepare 210 from 2
+585:Sending Promise PID:210 to 2 accepted PROMPID:110 ValACC: 4
+597:PREPARE TIMEOUT : Pid 10 curVal :4
+598:Sending Prepare 11
+607:Received Prepare 11 from 0
+608:Sending Promise 11 to 0
+609:Received Promise 11 11 from 0
+612:Received Prepare 111 from 1
+614:Sending Promise PID:111 to 1 accepted PROMPID:11 ValACC: 4
+627:Received Prepare 211 from 2
+629:Sending Promise PID:211 to 2 accepted PROMPID:111 ValACC: 4
+647:PREPARE TIMEOUT : Pid 11 curVal :4
+648:Sending Prepare 12
+650:Received Prepare 12 from 0
+652:Sending Promise 12 to 0
+653:Received Promise 12 12 from 0
+662:Received Prepare 112 from 1
+664:Sending Promise PID:112 to 1 accepted PROMPID:12 ValACC: 4
+688:Received Prepare 212 from 2
+689:Sending Promise PID:212 to 2 accepted PROMPID:112 ValACC: 4
+698:PREPARE TIMEOUT : Pid 12 curVal :4
+699:Sending Prepare 13
+701:Received Prepare 13 from 0
+702:Sending Promise 13 to 0
+705:Received Promise 13 13 from 0
+712:Received Prepare 113 from 1
+716:Sending Promise PID:113 to 1 accepted PROMPID:13 ValACC: 4
+727:Received Prepare 213 from 2
+728:Sending Promise PID:213 to 2 accepted PROMPID:113 ValACC: 4
+748:PREPARE TIMEOUT : Pid 13 curVal :4
+749:Sending Prepare 14
+755:Received Prepare 14 from 0
+756:Sending Promise 14 to 0
+760:Received Promise 14 14 from 0
+763:Received Prepare 114 from 1
+765:Sending Promise PID:114 to 1 accepted PROMPID:14 ValACC: 4
+789:Received Prepare 214 from 2
+790:Sending Promise PID:214 to 2 accepted PROMPID:114 ValACC: 4
+797:PREPARE TIMEOUT : Pid 14 curVal :4
+798:Sending Prepare 15
+804:Received Prepare 15 from 0
+807:Sending Promise 15 to 0
+809:Received Promise 15 15 from 0
+814:Received Prepare 115 from 1
+818:Sending Promise PID:115 to 1 accepted PROMPID:15 ValACC: 4
+829:Received Prepare 215 from 2
+830:Sending Promise PID:215 to 2 accepted PROMPID:115 ValACC: 4
+847:PREPARE TIMEOUT : Pid 15 curVal :4
+848:Sending Prepare 16
+849:Received Prepare 16 from 0
+856:Sending Promise 16 to 0
+858:Received Promise 16 16 from 0
+864:Received Prepare 116 from 1
+870:Sending Promise PID:116 to 1 accepted PROMPID:16 ValACC: 4
+879:Received Prepare 216 from 2
+882:Sending Promise PID:216 to 2 accepted PROMPID:116 ValACC: 4
+897:PREPARE TIMEOUT : Pid 16 curVal :4
+898:Sending Prepare 17
+903:Received Prepare 17 from 0
+904:Sending Promise 17 to 0
+909:Received Promise 17 17 from 0
+923:Received Prepare 117 from 1
+924:Sending Promise PID:117 to 1 accepted PROMPID:17 ValACC: 4
+929:Received Prepare 217 from 2
+931:Sending Promise PID:217 to 2 accepted PROMPID:117 ValACC: 4
+947:PREPARE TIMEOUT : Pid 17 curVal :4
+948:Sending Prepare 18
+950:Received Prepare 18 from 0
+952:Sending Promise 18 to 0
+958:Received Promise 18 18 from 0
+973:Received Prepare 118 from 1
+974:Sending Promise PID:118 to 1 accepted PROMPID:18 ValACC: 4
+979:Received Prepare 218 from 2
+980:Sending Promise PID:218 to 2 accepted PROMPID:118 ValACC: 4
+997:PREPARE TIMEOUT : Pid 18 curVal :4
+998:Sending Prepare 19
+1000:Received Prepare 19 from 0
+1001:Sending Promise 19 to 0
+1003:Received Promise 19 19 from 0
+1013:Received Prepare 119 from 1
+1014:Sending Promise PID:119 to 1 accepted PROMPID:19 ValACC: 4
+1039:Received Prepare 219 from 2
+1040:Sending Promise PID:219 to 2 accepted PROMPID:119 ValACC: 4
+1046:PREPARE TIMEOUT : Pid 19 curVal :4
+1047:Sending Prepare 20
+1048:Received Prepare 20 from 0
+1049:Sending Promise 20 to 0
+1053:Received Promise 20 20 from 0
+1068:Received Prepare 120 from 1
+1070:Sending Promise PID:120 to 1 accepted PROMPID:20 ValACC: 4
+1079:Received Prepare 220 from 2
+1080:Sending Promise PID:220 to 2 accepted PROMPID:120 ValACC: 4
+1097:PREPARE TIMEOUT : Pid 20 curVal :4
+1098:Sending Prepare 21
+1100:Received Prepare 21 from 0
+1101:Sending Promise 21 to 0
+1103:Received Promise 21 21 from 0
+1121:Received Prepare 121 from 1
+1122:Sending Promise PID:121 to 1 accepted PROMPID:21 ValACC: 4
+1130:Received Prepare 221 from 2
+1132:Sending Promise PID:221 to 2 accepted PROMPID:121 ValACC: 4
+1148:PREPARE TIMEOUT : Pid 21 curVal :4
+1149:Sending Prepare 22
+1150:Received Prepare 22 from 0
+1155:Sending Promise 22 to 0
+1160:Received Promise 22 22 from 0
+1172:Received Prepare 122 from 1
+1174:Sending Promise PID:122 to 1 accepted PROMPID:22 ValACC: 4
+1181:Received Prepare 222 from 2
+1184:Sending Promise PID:222 to 2 accepted PROMPID:122 ValACC: 4
+1199:PREPARE TIMEOUT : Pid 22 curVal :4
+1200:Sending Prepare 23
+1202:Received Prepare 23 from 0
+1204:Sending Promise 23 to 0
+1206:Received Promise 23 23 from 0
+1217:Received Prepare 123 from 1
+1218:Sending Promise PID:123 to 1 accepted PROMPID:23 ValACC: 4
+1232:Received Prepare 223 from 2
+1233:Sending Promise PID:223 to 2 accepted PROMPID:123 ValACC: 4
+1250:PREPARE TIMEOUT : Pid 23 curVal :4
+1251:Sending Prepare 24
+1260:Received Prepare 24 from 0
+1261:Sending Promise 24 to 0
+1262:Received Promise 24 24 from 0
+1276:Received Prepare 124 from 1
+1277:Sending Promise PID:124 to 1 accepted PROMPID:24 ValACC: 4
+1287:Received Prepare 224 from 2
+1288:Sending Promise PID:224 to 2 accepted PROMPID:124 ValACC: 4
+1301:PREPARE TIMEOUT : Pid 24 curVal :4
+1302:Sending Prepare 25
+1303:Received Prepare 25 from 0
+1304:Sending Promise 25 to 0
+1307:Received Promise 25 25 from 0
+1319:Received Prepare 125 from 1
+1321:Sending Promise PID:125 to 1 accepted PROMPID:25 ValACC: 4
+1334:Received Prepare 225 from 2
+1335:Sending Promise PID:225 to 2 accepted PROMPID:125 ValACC: 4
+1352:PREPARE TIMEOUT : Pid 25 curVal :4
+1353:Sending Prepare 26
+1354:Received Prepare 26 from 0
+1355:Sending Promise 26 to 0
+1356:Received Promise 26 26 from 0
+1377:Received Prepare 126 from 1
+1378:Sending Promise PID:126 to 1 accepted PROMPID:26 ValACC: 4
+1385:Received Prepare 226 from 2
+1386:Sending Promise PID:226 to 2 accepted PROMPID:126 ValACC: 4
+1403:PREPARE TIMEOUT : Pid 26 curVal :4
+1404:Sending Prepare 27
+1406:Received Prepare 27 from 0
+1408:Sending Promise 27 to 0
+1411:Received Promise 27 27 from 0
+1427:Received Prepare 127 from 1
+1428:Sending Promise PID:127 to 1 accepted PROMPID:27 ValACC: 4
+1443:Received Prepare 227 from 2
+1446:Sending Promise PID:227 to 2 accepted PROMPID:127 ValACC: 4
+1454:PREPARE TIMEOUT : Pid 27 curVal :4
+1455:Sending Prepare 28
+1457:Received Prepare 28 from 0
+1458:Sending Promise 28 to 0
+1460:Received Promise 28 28 from 0
+1474:Received Prepare 128 from 1
+1475:Sending Promise PID:128 to 1 accepted PROMPID:28 ValACC: 4
+1494:Received Prepare 228 from 2
+1495:Sending Promise PID:228 to 2 accepted PROMPID:128 ValACC: 4
+1505:PREPARE TIMEOUT : Pid 28 curVal :4
+1506:Sending Prepare 29
+1512:Received Prepare 29 from 0
+1513:Sending Promise 29 to 0
+1516:Received Promise 29 29 from 0
+1519:Received Prepare 129 from 1
+1520:Sending Promise PID:129 to 1 accepted PROMPID:29 ValACC: 4
+1545:Received Prepare 229 from 2
+1546:Sending Promise PID:229 to 2 accepted PROMPID:129 ValACC: 4
+1554:PREPARE TIMEOUT : Pid 29 curVal :4
+1555:Sending Prepare 30
+1557:Received Prepare 30 from 0
+1558:Sending Promise 30 to 0
+1559:Received Promise 30 30 from 0
+1576:Received Prepare 130 from 1
+1578:Sending Promise PID:130 to 1 accepted PROMPID:30 ValACC: 4
+1590:Received Prepare 230 from 2
+1591:Sending Promise PID:230 to 2 accepted PROMPID:130 ValACC: 4
+1605:PREPARE TIMEOUT : Pid 30 curVal :4
+1606:Sending Prepare 31
+1608:Received Prepare 31 from 0
+1609:Sending Promise 31 to 0
+1610:Received Promise 31 31 from 0
+1619:Received Prepare 131 from 1
+1620:Sending Promise PID:131 to 1 accepted PROMPID:31 ValACC: 4
+1637:Received Prepare 231 from 2
+1638:Sending Promise PID:231 to 2 accepted PROMPID:131 ValACC: 4
+1655:PREPARE TIMEOUT : Pid 31 curVal :4
+1656:Sending Prepare 32
+1664:Received Prepare 32 from 0
+1665:Sending Promise 32 to 0
+1666:Received Promise 32 32 from 0
+1669:Received Prepare 132 from 1
+1670:Sending Promise PID:132 to 1 accepted PROMPID:32 ValACC: 4
+1687:Received Prepare 232 from 2
+1688:Sending Promise PID:232 to 2 accepted PROMPID:132 ValACC: 4
+1705:PREPARE TIMEOUT : Pid 32 curVal :4
+1706:Sending Prepare 33
+1707:Received Prepare 33 from 0
+1708:Sending Promise 33 to 0
+1710:Received Promise 33 33 from 0
+1720:Received Prepare 133 from 1
+1725:Sending Promise PID:133 to 1 accepted PROMPID:33 ValACC: 4
+1738:Received Prepare 233 from 2
+1739:Sending Promise PID:233 to 2 accepted PROMPID:133 ValACC: 4
+1756:PREPARE TIMEOUT : Pid 33 curVal :4
+1757:Sending Prepare 34
+1758:Received Prepare 34 from 0
+1759:Sending Promise 34 to 0
+1766:Received Promise 34 34 from 0
+1771:Received Prepare 134 from 1
+1776:Sending Promise PID:134 to 1 accepted PROMPID:34 ValACC: 4
+1793:Received Prepare 234 from 2
+1794:Sending Promise PID:234 to 2 accepted PROMPID:134 ValACC: 4
+1807:PREPARE TIMEOUT : Pid 34 curVal :4
+1808:Sending Prepare 35
+1812:Received Prepare 35 from 0
+1814:Sending Promise 35 to 0
+1817:Received Promise 35 35 from 0
+1822:Received Prepare 135 from 1
+1825:Sending Promise PID:135 to 1 accepted PROMPID:35 ValACC: 4
+1847:Received Prepare 235 from 2
+1848:Sending Promise PID:235 to 2 accepted PROMPID:135 ValACC: 4
+1858:PREPARE TIMEOUT : Pid 35 curVal :4
+1859:Sending Prepare 36
+1860:Received Prepare 36 from 0
+1861:Sending Promise 36 to 0
+1867:Received Promise 36 36 from 0
+1872:Received Prepare 136 from 1
+1874:Sending Promise PID:136 to 1 accepted PROMPID:36 ValACC: 4
+1890:Received Prepare 236 from 2
+1897:Sending Promise PID:236 to 2 accepted PROMPID:136 ValACC: 4
+1907:PREPARE TIMEOUT : Pid 36 curVal :4
+1908:Sending Prepare 37
+1913:Received Prepare 37 from 0
+1914:Sending Promise 37 to 0
+1917:Received Promise 37 37 from 0
+1928:Received Prepare 137 from 1
+1929:Sending Promise PID:137 to 1 accepted PROMPID:37 ValACC: 4
+1939:Received Prepare 237 from 2
+1940:Sending Promise PID:237 to 2 accepted PROMPID:137 ValACC: 4

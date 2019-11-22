@@ -1,1 +1,507 @@
-4:Inside Node run 4
+1:Inside Node run 4
+8:NODE 4 STARTING ELECTION
+9:Sending Prepare 401
+14:Received Prepare 201 from 2
+15:Sending Promise 201 to 2
+17:Received Prepare 1 from 0
+44:Prepare <= PID:1 PROMPID:201 rejected from 0
+45:Received Prepare 301 from 3
+49:Sending Promise Higher PID:301 to 3
+61:Received Prepare 401 from 4
+62:Sending Promise Higher PID:401 to 4
+63:Received Prepare 101 from 1
+64:Prepare <= PID:101 PROMPID:401 rejected from 1
+66:Received Promise 401 401 from 1
+68:Received Promise 401 401 from 0
+71:Received Promise 401 401 from 2
+72:Received Promise 401 401 from 3
+73:Received Promise 401 401 from 4
+79:Reached Majority of 5 Promises for proposal 401
+80:Sending Accept-Request to 1 curPROPPID:401 Val: 4
+82:Sending Accept-Request to 0 curPROPPID:401 Val: 4
+88:Sending Accept-Request to 2 curPROPPID:401 Val: 4
+91:Sending Accept-Request to 3 curPROPPID:401 Val: 4
+92:Sending Accept-Request to 4 curPROPPID:401 Val: 4
+105:Got Acceptance PROPID:401 ValACC: 4 from 0
+106:Rejecting Accept-Request with lower PID: 201, My PROMID: 401 Val: 2
+107:Sending Accept PROMPID:401 Val: 4 to 4
+108:Got Acceptance PROPID:401 ValACC: 4 from 1
+109:Got Acceptance PROPID:401 ValACC: 4 from 2
+110:Got Acceptance PROPID:401 ValACC: 4 from 3
+111:Reached Majority 4 Acceptances 401 Value: 4
+112:CURRENT LEADER ELECTED : 4
+113:Got Acceptance PROPID:401 ValACC: 4 from 4
+114:Sending HeartBeat 4
+115:RECEIVED HEARTBEAT FROM LEADER : 4
+116:Sending HeartBeat 4
+117:RECEIVED HEARTBEAT FROM LEADER : 4
+122:Received Prepare 2 from 0
+125:Prepare <= PID:2 PROMPID:401 rejected from 0
+139:Received Prepare 102 from 1
+141:Prepare <= PID:102 PROMPID:401 rejected from 1
+171:Received Prepare 302 from 3
+172:Prepare <= PID:302 PROMPID:401 rejected from 3
+173:Received Prepare 202 from 2
+174:Prepare <= PID:202 PROMPID:401 rejected from 2
+190:Sending HeartBeat 4
+191:RECEIVED HEARTBEAT FROM LEADER : 4
+192:Sending HeartBeat 4
+194:RECEIVED HEARTBEAT FROM LEADER : 4
+197:Received Prepare 3 from 0
+198:Prepare <= PID:3 PROMPID:401 rejected from 0
+215:Received Prepare 103 from 1
+216:Prepare <= PID:103 PROMPID:401 rejected from 1
+230:Received Prepare 203 from 2
+231:Prepare <= PID:203 PROMPID:401 rejected from 2
+240:Sending HeartBeat 4
+241:RECEIVED HEARTBEAT FROM LEADER : 4
+243:Sending HeartBeat 4
+244:RECEIVED HEARTBEAT FROM LEADER : 4
+255:Received Prepare 4 from 0
+256:Prepare <= PID:4 PROMPID:401 rejected from 0
+268:Received Prepare 104 from 1
+270:Prepare <= PID:104 PROMPID:401 rejected from 1
+278:Received Prepare 204 from 2
+281:Prepare <= PID:204 PROMPID:401 rejected from 2
+289:Sending HeartBeat 4
+290:RECEIVED HEARTBEAT FROM LEADER : 4
+292:Sending HeartBeat 4
+293:RECEIVED HEARTBEAT FROM LEADER : 4
+303:Received Prepare 5 from 0
+304:Prepare <= PID:5 PROMPID:401 rejected from 0
+312:Received Prepare 105 from 1
+313:Prepare <= PID:105 PROMPID:401 rejected from 1
+337:Received Prepare 205 from 2
+338:Prepare <= PID:205 PROMPID:401 rejected from 2
+339:Sending HeartBeat 4
+341:RECEIVED HEARTBEAT FROM LEADER : 4
+342:Sending HeartBeat 4
+343:RECEIVED HEARTBEAT FROM LEADER : 4
+356:Received Prepare 6 from 0
+357:Prepare <= PID:6 PROMPID:401 rejected from 0
+368:Received Prepare 106 from 1
+372:Prepare <= PID:106 PROMPID:401 rejected from 1
+383:Received Prepare 206 from 2
+385:Prepare <= PID:206 PROMPID:401 rejected from 2
+390:Sending HeartBeat 4
+392:RECEIVED HEARTBEAT FROM LEADER : 4
+393:Sending HeartBeat 4
+394:RECEIVED HEARTBEAT FROM LEADER : 4
+405:Received Prepare 7 from 0
+406:Prepare <= PID:7 PROMPID:401 rejected from 0
+422:Received Prepare 107 from 1
+423:Prepare <= PID:107 PROMPID:401 rejected from 1
+428:Received Prepare 207 from 2
+430:Prepare <= PID:207 PROMPID:401 rejected from 2
+441:Sending HeartBeat 4
+443:RECEIVED HEARTBEAT FROM LEADER : 4
+444:Sending HeartBeat 4
+446:RECEIVED HEARTBEAT FROM LEADER : 4
+450:Received Prepare 8 from 0
+451:Prepare <= PID:8 PROMPID:401 rejected from 0
+473:Received Prepare 108 from 1
+474:Prepare <= PID:108 PROMPID:401 rejected from 1
+488:Received Prepare 208 from 2
+489:Prepare <= PID:208 PROMPID:401 rejected from 2
+492:Sending HeartBeat 4
+493:RECEIVED HEARTBEAT FROM LEADER : 4
+495:Sending HeartBeat 4
+497:RECEIVED HEARTBEAT FROM LEADER : 4
+509:Received Prepare 9 from 0
+510:Prepare <= PID:9 PROMPID:401 rejected from 0
+524:Received Prepare 109 from 1
+525:Prepare <= PID:109 PROMPID:401 rejected from 1
+536:Received Prepare 209 from 2
+537:Prepare <= PID:209 PROMPID:401 rejected from 2
+542:Sending HeartBeat 4
+543:RECEIVED HEARTBEAT FROM LEADER : 4
+545:Sending HeartBeat 4
+546:RECEIVED HEARTBEAT FROM LEADER : 4
+559:Received Prepare 10 from 0
+560:Prepare <= PID:10 PROMPID:401 rejected from 0
+569:Received Prepare 110 from 1
+572:Prepare <= PID:110 PROMPID:401 rejected from 1
+587:Received Prepare 210 from 2
+589:Prepare <= PID:210 PROMPID:401 rejected from 2
+592:Sending HeartBeat 4
+593:RECEIVED HEARTBEAT FROM LEADER : 4
+594:Sending HeartBeat 4
+595:RECEIVED HEARTBEAT FROM LEADER : 4
+599:Received Prepare 11 from 0
+600:Prepare <= PID:11 PROMPID:401 rejected from 0
+621:Received Prepare 111 from 1
+623:Prepare <= PID:111 PROMPID:401 rejected from 1
+637:Received Prepare 211 from 2
+638:Prepare <= PID:211 PROMPID:401 rejected from 2
+641:Sending HeartBeat 4
+643:RECEIVED HEARTBEAT FROM LEADER : 4
+644:Sending HeartBeat 4
+645:RECEIVED HEARTBEAT FROM LEADER : 4
+658:Received Prepare 12 from 0
+659:Prepare <= PID:12 PROMPID:401 rejected from 0
+671:Received Prepare 112 from 1
+673:Prepare <= PID:112 PROMPID:401 rejected from 1
+681:Received Prepare 212 from 2
+683:Prepare <= PID:212 PROMPID:401 rejected from 2
+692:Sending HeartBeat 4
+693:RECEIVED HEARTBEAT FROM LEADER : 4
+695:Sending HeartBeat 4
+697:RECEIVED HEARTBEAT FROM LEADER : 4
+701:Received Prepare 13 from 0
+702:Prepare <= PID:13 PROMPID:401 rejected from 0
+723:Received Prepare 113 from 1
+724:Prepare <= PID:113 PROMPID:401 rejected from 1
+739:Received Prepare 213 from 2
+740:Prepare <= PID:213 PROMPID:401 rejected from 2
+742:Sending HeartBeat 4
+743:RECEIVED HEARTBEAT FROM LEADER : 4
+745:Sending HeartBeat 4
+746:RECEIVED HEARTBEAT FROM LEADER : 4
+758:Received Prepare 14 from 0
+759:Prepare <= PID:14 PROMPID:401 rejected from 0
+772:Received Prepare 114 from 1
+774:Prepare <= PID:114 PROMPID:401 rejected from 1
+787:Received Prepare 214 from 2
+788:Prepare <= PID:214 PROMPID:401 rejected from 2
+793:Sending HeartBeat 4
+794:RECEIVED HEARTBEAT FROM LEADER : 4
+796:Sending HeartBeat 4
+800:Received Prepare 15 from 0
+802:Prepare <= PID:15 PROMPID:401 rejected from 0
+803:RECEIVED HEARTBEAT FROM LEADER : 4
+822:Received Prepare 115 from 1
+823:Prepare <= PID:115 PROMPID:401 rejected from 1
+840:Received Prepare 215 from 2
+841:Prepare <= PID:215 PROMPID:401 rejected from 2
+844:Sending HeartBeat 4
+845:RECEIVED HEARTBEAT FROM LEADER : 4
+849:Received Prepare 16 from 0
+852:Prepare <= PID:16 PROMPID:401 rejected from 0
+859:Sending HeartBeat 4
+860:RECEIVED HEARTBEAT FROM LEADER : 4
+867:Received Prepare 116 from 1
+868:Prepare <= PID:116 PROMPID:401 rejected from 1
+881:Received Prepare 216 from 2
+884:Prepare <= PID:216 PROMPID:401 rejected from 2
+894:Sending HeartBeat 4
+895:RECEIVED HEARTBEAT FROM LEADER : 4
+905:Received Prepare 17 from 0
+906:Prepare <= PID:17 PROMPID:401 rejected from 0
+910:Sending HeartBeat 4
+912:RECEIVED HEARTBEAT FROM LEADER : 4
+915:Received Prepare 117 from 1
+917:Prepare <= PID:117 PROMPID:401 rejected from 1
+934:Received Prepare 217 from 2
+936:Prepare <= PID:217 PROMPID:401 rejected from 2
+944:Sending HeartBeat 4
+945:RECEIVED HEARTBEAT FROM LEADER : 4
+951:Received Prepare 18 from 0
+953:Prepare <= PID:18 PROMPID:401 rejected from 0
+959:Sending HeartBeat 4
+961:RECEIVED HEARTBEAT FROM LEADER : 4
+968:Received Prepare 118 from 1
+969:Prepare <= PID:118 PROMPID:401 rejected from 1
+983:Received Prepare 218 from 2
+984:Prepare <= PID:218 PROMPID:401 rejected from 2
+994:Sending HeartBeat 4
+995:RECEIVED HEARTBEAT FROM LEADER : 4
+1004:Received Prepare 19 from 0
+1005:Prepare <= PID:19 PROMPID:401 rejected from 0
+1008:Sending HeartBeat 4
+1009:RECEIVED HEARTBEAT FROM LEADER : 4
+1022:Received Prepare 119 from 1
+1023:Prepare <= PID:119 PROMPID:401 rejected from 1
+1037:Received Prepare 219 from 2
+1038:Prepare <= PID:219 PROMPID:401 rejected from 2
+1043:Sending HeartBeat 4
+1044:RECEIVED HEARTBEAT FROM LEADER : 4
+1050:Received Prepare 20 from 0
+1052:Prepare <= PID:20 PROMPID:401 rejected from 0
+1059:Sending HeartBeat 4
+1060:RECEIVED HEARTBEAT FROM LEADER : 4
+1075:Received Prepare 120 from 1
+1076:Prepare <= PID:120 PROMPID:401 rejected from 1
+1090:Received Prepare 220 from 2
+1091:Prepare <= PID:220 PROMPID:401 rejected from 2
+1094:Sending HeartBeat 4
+1096:RECEIVED HEARTBEAT FROM LEADER : 4
+1104:Received Prepare 21 from 0
+1105:Prepare <= PID:21 PROMPID:401 rejected from 0
+1110:Sending HeartBeat 4
+1111:RECEIVED HEARTBEAT FROM LEADER : 4
+1124:Received Prepare 121 from 1
+1125:Prepare <= PID:121 PROMPID:401 rejected from 1
+1141:Received Prepare 221 from 2
+1142:Prepare <= PID:221 PROMPID:401 rejected from 2
+1145:Sending HeartBeat 4
+1146:RECEIVED HEARTBEAT FROM LEADER : 4
+1153:Received Prepare 22 from 0
+1154:Prepare <= PID:22 PROMPID:401 rejected from 0
+1161:Sending HeartBeat 4
+1162:RECEIVED HEARTBEAT FROM LEADER : 4
+1177:Received Prepare 122 from 1
+1178:Prepare <= PID:122 PROMPID:401 rejected from 1
+1190:Received Prepare 222 from 2
+1191:Prepare <= PID:222 PROMPID:401 rejected from 2
+1196:Sending HeartBeat 4
+1197:RECEIVED HEARTBEAT FROM LEADER : 4
+1210:Received Prepare 23 from 0
+1211:Prepare <= PID:23 PROMPID:401 rejected from 0
+1212:Sending HeartBeat 4
+1214:RECEIVED HEARTBEAT FROM LEADER : 4
+1223:Received Prepare 123 from 1
+1224:Prepare <= PID:123 PROMPID:401 rejected from 1
+1235:Received Prepare 223 from 2
+1241:Prepare <= PID:223 PROMPID:401 rejected from 2
+1247:Sending HeartBeat 4
+1248:RECEIVED HEARTBEAT FROM LEADER : 4
+1252:Received Prepare 24 from 0
+1255:Prepare <= PID:24 PROMPID:401 rejected from 0
+1263:Sending HeartBeat 4
+1264:RECEIVED HEARTBEAT FROM LEADER : 4
+1274:Received Prepare 124 from 1
+1275:Prepare <= PID:124 PROMPID:401 rejected from 1
+1290:Received Prepare 224 from 2
+1291:Prepare <= PID:224 PROMPID:401 rejected from 2
+1298:Sending HeartBeat 4
+1299:RECEIVED HEARTBEAT FROM LEADER : 4
+1310:Received Prepare 25 from 0
+1311:Prepare <= PID:25 PROMPID:401 rejected from 0
+1314:Sending HeartBeat 4
+1315:RECEIVED HEARTBEAT FROM LEADER : 4
+1328:Received Prepare 125 from 1
+1329:Prepare <= PID:125 PROMPID:401 rejected from 1
+1341:Received Prepare 225 from 2
+1343:Prepare <= PID:225 PROMPID:401 rejected from 2
+1349:Sending HeartBeat 4
+1351:RECEIVED HEARTBEAT FROM LEADER : 4
+1363:Received Prepare 26 from 0
+1364:Prepare <= PID:26 PROMPID:401 rejected from 0
+1365:Sending HeartBeat 4
+1366:RECEIVED HEARTBEAT FROM LEADER : 4
+1374:Received Prepare 126 from 1
+1375:Prepare <= PID:126 PROMPID:401 rejected from 1
+1388:Received Prepare 226 from 2
+1389:Prepare <= PID:226 PROMPID:401 rejected from 2
+1400:Sending HeartBeat 4
+1401:RECEIVED HEARTBEAT FROM LEADER : 4
+1412:Received Prepare 27 from 0
+1413:Prepare <= PID:27 PROMPID:401 rejected from 0
+1419:Received Prepare 127 from 1
+1421:Prepare <= PID:127 PROMPID:401 rejected from 1
+1431:Sending HeartBeat 4
+1432:RECEIVED HEARTBEAT FROM LEADER : 4
+1444:Received Prepare 227 from 2
+1445:Prepare <= PID:227 PROMPID:401 rejected from 2
+1451:Sending HeartBeat 4
+1453:RECEIVED HEARTBEAT FROM LEADER : 4
+1463:Received Prepare 28 from 0
+1464:Prepare <= PID:28 PROMPID:401 rejected from 0
+1478:Received Prepare 128 from 1
+1480:Prepare <= PID:128 PROMPID:401 rejected from 1
+1482:Sending HeartBeat 4
+1483:RECEIVED HEARTBEAT FROM LEADER : 4
+1490:Received Prepare 228 from 2
+1491:Prepare <= PID:228 PROMPID:401 rejected from 2
+1502:Sending HeartBeat 4
+1503:RECEIVED HEARTBEAT FROM LEADER : 4
+1507:Received Prepare 29 from 0
+1509:Prepare <= PID:29 PROMPID:401 rejected from 0
+1524:Received Prepare 129 from 1
+1526:Prepare <= PID:129 PROMPID:401 rejected from 1
+1531:Sending HeartBeat 4
+1533:RECEIVED HEARTBEAT FROM LEADER : 4
+1543:Received Prepare 229 from 2
+1544:Prepare <= PID:229 PROMPID:401 rejected from 2
+1551:Sending HeartBeat 4
+1553:RECEIVED HEARTBEAT FROM LEADER : 4
+1563:Received Prepare 30 from 0
+1564:Prepare <= PID:30 PROMPID:401 rejected from 0
+1574:Received Prepare 130 from 1
+1575:Prepare <= PID:130 PROMPID:401 rejected from 1
+1582:Sending HeartBeat 4
+1583:RECEIVED HEARTBEAT FROM LEADER : 4
+1596:Received Prepare 230 from 2
+1597:Prepare <= PID:230 PROMPID:401 rejected from 2
+1602:Sending HeartBeat 4
+1603:RECEIVED HEARTBEAT FROM LEADER : 4
+1613:Received Prepare 31 from 0
+1614:Prepare <= PID:31 PROMPID:401 rejected from 0
+1623:Received Prepare 131 from 1
+1625:Prepare <= PID:131 PROMPID:401 rejected from 1
+1632:Sending HeartBeat 4
+1633:RECEIVED HEARTBEAT FROM LEADER : 4
+1647:Received Prepare 231 from 2
+1649:Prepare <= PID:231 PROMPID:401 rejected from 2
+1652:Sending HeartBeat 4
+1653:RECEIVED HEARTBEAT FROM LEADER : 4
+1657:Received Prepare 32 from 0
+1658:Prepare <= PID:32 PROMPID:401 rejected from 0
+1673:Received Prepare 132 from 1
+1674:Prepare <= PID:132 PROMPID:401 rejected from 1
+1682:Sending HeartBeat 4
+1683:RECEIVED HEARTBEAT FROM LEADER : 4
+1691:Received Prepare 232 from 2
+1692:Prepare <= PID:232 PROMPID:401 rejected from 2
+1702:Sending HeartBeat 4
+1703:RECEIVED HEARTBEAT FROM LEADER : 4
+1712:Received Prepare 33 from 0
+1713:Prepare <= PID:33 PROMPID:401 rejected from 0
+1723:Received Prepare 133 from 1
+1724:Prepare <= PID:133 PROMPID:401 rejected from 1
+1733:Sending HeartBeat 4
+1734:RECEIVED HEARTBEAT FROM LEADER : 4
+1749:Received Prepare 233 from 2
+1750:Prepare <= PID:233 PROMPID:401 rejected from 2
+1753:Sending HeartBeat 4
+1754:RECEIVED HEARTBEAT FROM LEADER : 4
+1762:Received Prepare 34 from 0
+1764:Prepare <= PID:34 PROMPID:401 rejected from 0
+1772:Received Prepare 134 from 1
+1773:Prepare <= PID:134 PROMPID:401 rejected from 1
+1784:Sending HeartBeat 4
+1785:RECEIVED HEARTBEAT FROM LEADER : 4
+1798:Received Prepare 234 from 2
+1799:Prepare <= PID:234 PROMPID:401 rejected from 2
+1804:Sending HeartBeat 4
+1805:RECEIVED HEARTBEAT FROM LEADER : 4
+1818:Received Prepare 35 from 0
+1819:Prepare <= PID:35 PROMPID:401 rejected from 0
+1831:Received Prepare 135 from 1
+1832:Prepare <= PID:135 PROMPID:401 rejected from 1
+1835:Sending HeartBeat 4
+1837:RECEIVED HEARTBEAT FROM LEADER : 4
+1840:Received Prepare 235 from 2
+1844:Prepare <= PID:235 PROMPID:401 rejected from 2
+1855:Sending HeartBeat 4
+1856:RECEIVED HEARTBEAT FROM LEADER : 4
+1862:Received Prepare 36 from 0
+1865:Prepare <= PID:36 PROMPID:401 rejected from 0
+1881:Received Prepare 136 from 1
+1882:Prepare <= PID:136 PROMPID:401 rejected from 1
+1885:Sending HeartBeat 4
+1886:RECEIVED HEARTBEAT FROM LEADER : 4
+1891:Received Prepare 236 from 2
+1893:Prepare <= PID:236 PROMPID:401 rejected from 2
+1904:Sending HeartBeat 4
+1905:RECEIVED HEARTBEAT FROM LEADER : 4
+1918:Received Prepare 37 from 0
+1919:Prepare <= PID:37 PROMPID:401 rejected from 0
+1930:Received Prepare 137 from 1
+1933:Prepare <= PID:137 PROMPID:401 rejected from 1
+1934:Sending HeartBeat 4
+1935:RECEIVED HEARTBEAT FROM LEADER : 4
+1941:Received Prepare 237 from 2
+1945:Prepare <= PID:237 PROMPID:401 rejected from 2
+1953:Sending HeartBeat 4
+1954:RECEIVED HEARTBEAT FROM LEADER : 4
+1967:Received Prepare 38 from 0
+1968:Prepare <= PID:38 PROMPID:401 rejected from 0
+1973:Received Prepare 138 from 1
+1974:Prepare <= PID:138 PROMPID:401 rejected from 1
+1982:Sending HeartBeat 4
+1983:RECEIVED HEARTBEAT FROM LEADER : 4
+1993:Received Prepare 238 from 2
+1995:Prepare <= PID:238 PROMPID:401 rejected from 2
+2002:Sending HeartBeat 4
+2003:RECEIVED HEARTBEAT FROM LEADER : 4
+2007:Received Prepare 39 from 0
+2009:Prepare <= PID:39 PROMPID:401 rejected from 0
+2025:Received Prepare 139 from 1
+2026:Prepare <= PID:139 PROMPID:401 rejected from 1
+2032:Sending HeartBeat 4
+2034:RECEIVED HEARTBEAT FROM LEADER : 4
+2044:Received Prepare 239 from 2
+2045:Prepare <= PID:239 PROMPID:401 rejected from 2
+2050:Sending HeartBeat 4
+2051:RECEIVED HEARTBEAT FROM LEADER : 4
+2055:Received Prepare 40 from 0
+2056:Prepare <= PID:40 PROMPID:401 rejected from 0
+2079:Received Prepare 140 from 1
+2080:Prepare <= PID:140 PROMPID:401 rejected from 1
+2081:Sending HeartBeat 4
+2082:RECEIVED HEARTBEAT FROM LEADER : 4
+2092:Received Prepare 240 from 2
+2095:Prepare <= PID:240 PROMPID:401 rejected from 2
+2101:Sending HeartBeat 4
+2102:RECEIVED HEARTBEAT FROM LEADER : 4
+2114:Received Prepare 41 from 0
+2115:Prepare <= PID:41 PROMPID:401 rejected from 0
+2123:Received Prepare 141 from 1
+2124:Prepare <= PID:141 PROMPID:401 rejected from 1
+2132:Sending HeartBeat 4
+2133:RECEIVED HEARTBEAT FROM LEADER : 4
+2141:Received Prepare 241 from 2
+2142:Prepare <= PID:241 PROMPID:401 rejected from 2
+2150:Sending HeartBeat 4
+2151:RECEIVED HEARTBEAT FROM LEADER : 4
+2158:Received Prepare 42 from 0
+2159:Prepare <= PID:42 PROMPID:401 rejected from 0
+2171:Received Prepare 142 from 1
+2172:Prepare <= PID:142 PROMPID:401 rejected from 1
+2181:Sending HeartBeat 4
+2182:RECEIVED HEARTBEAT FROM LEADER : 4
+2195:Received Prepare 242 from 2
+2196:Prepare <= PID:242 PROMPID:401 rejected from 2
+2201:Sending HeartBeat 4
+2202:RECEIVED HEARTBEAT FROM LEADER : 4
+2211:Received Prepare 43 from 0
+2212:Prepare <= PID:43 PROMPID:401 rejected from 0
+2228:Received Prepare 143 from 1
+2229:Prepare <= PID:143 PROMPID:401 rejected from 1
+2232:Sending HeartBeat 4
+2233:RECEIVED HEARTBEAT FROM LEADER : 4
+2238:Received Prepare 243 from 2
+2240:Prepare <= PID:243 PROMPID:401 rejected from 2
+2252:Sending HeartBeat 4
+2253:RECEIVED HEARTBEAT FROM LEADER : 4
+2259:Received Prepare 44 from 0
+2261:Prepare <= PID:44 PROMPID:401 rejected from 0
+2272:Received Prepare 144 from 1
+2273:Prepare <= PID:144 PROMPID:401 rejected from 1
+2283:Sending HeartBeat 4
+2284:RECEIVED HEARTBEAT FROM LEADER : 4
+2295:Received Prepare 244 from 2
+2296:Prepare <= PID:244 PROMPID:401 rejected from 2
+2303:Sending HeartBeat 4
+2304:RECEIVED HEARTBEAT FROM LEADER : 4
+2316:Received Prepare 45 from 0
+2317:Prepare <= PID:45 PROMPID:401 rejected from 0
+2324:Received Prepare 145 from 1
+2325:Prepare <= PID:145 PROMPID:401 rejected from 1
+2334:Sending HeartBeat 4
+2335:RECEIVED HEARTBEAT FROM LEADER : 4
+2342:Received Prepare 245 from 2
+2343:Prepare <= PID:245 PROMPID:401 rejected from 2
+2354:Sending HeartBeat 4
+2355:RECEIVED HEARTBEAT FROM LEADER : 4
+2364:Received Prepare 46 from 0
+2365:Prepare <= PID:46 PROMPID:401 rejected from 0
+2374:Received Prepare 146 from 1
+2375:Prepare <= PID:146 PROMPID:401 rejected from 1
+2384:Sending HeartBeat 4
+2385:RECEIVED HEARTBEAT FROM LEADER : 4
+2398:Received Prepare 246 from 2
+2399:Prepare <= PID:246 PROMPID:401 rejected from 2
+2404:Sending HeartBeat 4
+2405:RECEIVED HEARTBEAT FROM LEADER : 4
+2414:Received Prepare 47 from 0
+2415:Prepare <= PID:47 PROMPID:401 rejected from 0
+2432:Received Prepare 147 from 1
+2433:Prepare <= PID:147 PROMPID:401 rejected from 1
+2435:Sending HeartBeat 4
+2436:RECEIVED HEARTBEAT FROM LEADER : 4
+2449:Received Prepare 247 from 2
+2450:Prepare <= PID:247 PROMPID:401 rejected from 2
+2455:Sending HeartBeat 4
+2456:RECEIVED HEARTBEAT FROM LEADER : 4
+2460:Received Prepare 48 from 0
+2462:Prepare <= PID:48 PROMPID:401 rejected from 0
+2475:Received Prepare 148 from 1
+2477:Prepare <= PID:148 PROMPID:401 rejected from 1
+2486:Sending HeartBeat 4
+2488:RECEIVED HEARTBEAT FROM LEADER : 4
+2491:Received Prepare 248 from 2
+2493:Prepare <= PID:248 PROMPID:401 rejected from 2
+2505:Sending HeartBeat 4
+2506:RECEIVED HEARTBEAT FROM LEADER : 4

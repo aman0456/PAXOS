@@ -22,13 +22,14 @@ public class Node extends Thread {
 	Boolean isPromiseMajority; // Did the promises reach the majority
 	Boolean isAcceptMajority;
 	Boolean isCompleted;
+	String curMax = null; // Current Value Max 
 	
 	Integer acceptCount;
 
 	ArrayList<Integer> promisedIds;
 	
 	// HARDCODED PARAMS
-	Duration mainTimeoutDuration = Duration.ofSeconds(10);
+	Duration mainTimeoutDuration = Duration.ofSeconds(2);
 	Duration secondaryTimeoutDuration = Duration.ofSeconds(0); 
 	Instant mainStartTime;
 	Instant secondaryStartTime;
@@ -52,8 +53,8 @@ public class Node extends Thread {
 	Node(Integer nodeId) throws FileNotFoundException, UnsupportedEncodingException {
 		this.nodelog = new ArrayList<>();
 		this.nodeId = nodeId;
-		this.curPropPid = 100 + nodeId;
-		this.curPromPid = 100 + nodeId;
+		this.curPropPid = 100+nodeId;
+		this.curPromPid = 100+nodeId;
 		Node.ordering = 0;
 		
 		
@@ -105,6 +106,11 @@ public class Node extends Thread {
 
 	void increPropPid()throws IOException {
 		this.curPropPid = this.curPropPid + comm.getNumNodes();
+		// this.curPropPid++;
+		// if(this.curPropPid % 100 == 0){
+		// 	this.curPropPid += 100*comm.getNumNodes();
+		// }
+		
 	}
 	
 		void handlePrepareTimeout(String msg) throws IOException {
@@ -145,7 +151,7 @@ public class Node extends Thread {
 
 		// FIXME 
 		this.isPromised = false;
-		this.isAccepted = false;
+		// this.isAccepted = false;
 		this.isCompleted = false;
 	}
 
@@ -160,7 +166,6 @@ public class Node extends Thread {
 
 	}
 
-	
 	void promise(Integer propPid, Integer fromID) throws IOException {
 		/* sends Response when received Prepare Msg */
 		
@@ -214,6 +219,7 @@ public class Node extends Thread {
 		} else {
 			isAccepted = true;
 			valueAcc = value;
+			curMax = value;
 			debug("Sending Accept PROMPID:" + curPromPid + " Val: "+ value + " to " + fromId,level0);
 			comm.send(acceptMsg, nodeId, fromId);
 		}
@@ -223,7 +229,6 @@ public class Node extends Thread {
 	public void run() { 
 		debug("Inside Node run " + nodeId,level0);
 		String valueSend = "";
-		String curMax = null;
 		try {
 			while(true){
 				
@@ -240,7 +245,7 @@ public class Node extends Thread {
 				if (!this.isLeaderPhase) {
 					// TO elect a leader at the very begining 
 					if(comm.isLeader(-1)){
-						valueSend = nodeId.toString();
+						valueSend = this.nodeId.toString();
 						handleHeartBeatTimeout("NODE " + this.nodeId + " STARTING ELECTION");
 					}
 					// If heartBeat timeouts
@@ -291,7 +296,24 @@ public class Node extends Thread {
 				if (mainCmd.compareTo("TIMY") == 0) {
 					Integer seconds = Integer.parseInt(parList[1]);
 					debug("SLEEPING NOW :(",level0);
+					String dyingLeaderMsg = "LEADERDEAD";
+					comm.resetLeader();
+					comm.sendAll(dyingLeaderMsg, this.nodeId);
+					
 					sleep(seconds*1000);
+					// 
+				} 
+				else if ( mainCmd.compareTo("LEADERDEAD") == 0){
+					debug("Leader dead staring paxos",level0);
+					this.isLeaderPhase = true;
+					// this.curMax = this.nodeId;
+					this.valueAcc = null;
+					this.curMax = null;
+					this.isAccepted = false; 
+					valueSend = this.nodeId.toString();
+					sleep(100);
+					prepare();
+					
 				} 
 				else if (!this.isLeaderPhase && mainCmd.compareTo("CMDPREPARE") == 0){ // TODO: the condition
 					// If another request comes in middle of protocol, it rejected 
@@ -356,19 +378,19 @@ public class Node extends Thread {
 				else if (mainCmd.compareTo("ACCEPT_REQUEST") == 0){
 					Integer fromId = Integer.parseInt(parList[1]);
 					Integer acceptPid = Integer.parseInt(parList[2]);
-					String valueAcc = parList[3];
-					accept(acceptPid, fromId, valueAcc);
+					String valueAccRei = parList[3];
+					accept(acceptPid, fromId, valueAccRei);
 				}
 
 				else if (mainCmd.compareTo("ACCEPT") == 0){
 					acceptCount++;
 					Integer fromId = Integer.parseInt(parList[1]);
 					Integer acceptPid = Integer.parseInt(parList[2]);
-					String valueAcc = parList[3]; 
-					debug("Got Acceptance PROPID:" + curPropPid + " ValACC: " + valueAcc + " from " + fromId,level0 );
+					String valueAccRei = parList[3]; 
+					debug("Got Acceptance PROPID:" + curPropPid + " ValACC: " + valueAccRei + " from " + fromId,level0 );
 					
-					if (acceptPid != curPropPid){
-						debug("Ignoring acceptance for different accept request" +  " curPROPID:" + curPropPid + " ACCPID:" + acceptPid + " ValS:" + valueAcc + " from " + fromId,level0);
+					if (acceptPid.compareTo(curPropPid) != 0){
+						debug("Ignoring acceptance for different accept request" +  " curPROPID:" + curPropPid + " ACCPID:" + acceptPid + " ValS:" + valueAccRei + " from " + fromId,level0);
 						continue;
 					}
 
