@@ -150,9 +150,6 @@ public class Node extends Thread {
 		this.promisedIds.clear();
 		this.mainStartTime = Instant.now();
 
-		// FIXME 
-		// this.isPromised = false;
-		// this.isAccepted = false;
 		this.isCompleted = false;
 	}
 
@@ -174,7 +171,7 @@ public class Node extends Thread {
 		if (this.isPromised) {
 			if (propPid.compareTo(this.curPromPid) <= 0){
 				debug("Prepare <= PID:" + propPid + " PROMPID:" + this.curPromPid+ " rejected from " + fromID,level0);
-				comm.send_nack(nodeId, fromID); //TODO: For the propID nackMsg
+				comm.send_nack(nodeId, fromID); //NOTE: For the propID nackMsg
 			} else {
 				if (isAccepted) {
 
@@ -325,19 +322,19 @@ public class Node extends Thread {
 					
 					
 				} 
-				else if (!this.isLeaderPhase && mainCmd.compareTo("CMDPREPARE") == 0){ // TODO: the condition
+				else if (!this.isLeaderPhase && mainCmd.compareTo("CMDPREPARE") == 0){ // 
 					// If another request comes in middle of protocol, it rejected 
-					// TODO; -- The change for the multi Paxos
+					
 					
 					valueSend = parList[1];
 					// prepare();
 					if(comm.isLeader(this.nodeId)){
 						
 						debug("CURRENT LEADER: " + comm.getLeader() + "WRITING TO LOG VALUE: " + valueSend + " nodeId :" + this.nodeId ,level0);
-						// TODO: Write in log 
 						comm.writeInlog(valueSend);
-						
+
 					}else{
+						// Send to the current leader
 						comm.send(cmd, this.nodeId, comm.getLeader());
 					}
 
@@ -417,7 +414,7 @@ public class Node extends Thread {
 						
 						this.isLeaderPhase = false;
 						this.heartBeatReceived = Instant.now();
-						//TODO: SEND TO ALL
+						//NOTE: can SEND TO ALL ? NO 
 					}
 				} 
 				else if (this.isLeaderPhase){
@@ -445,7 +442,6 @@ public class Node extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
