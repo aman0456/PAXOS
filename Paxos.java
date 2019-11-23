@@ -81,18 +81,18 @@ public class Paxos {
                     while((paxos.comm.getLeader() == -1)){}
                     toId = paxos.comm.getLeader();
                     // toId = Integer.parseInt(cmdList[2]);
-                    paxos.comm.send("CMDPREPARE:"+value, 0, toId);
+                    paxos.comm.send("CMDPREPARE:"+value, toId, toId);
             }
             else if (mainCmd.compareTo("timeout") == 0){
                 value = Integer.parseInt(cmdList[1]);
                 toId = Integer.parseInt(cmdList[2]);
-                paxos.comm.send("TIMY:"+value, 0, toId);
+                paxos.comm.send("TIMY:"+value, toId, toId);
             }else if (mainCmd.compareTo("kill") == 0){
                 // value = Integer.parseInt(cmdList[1]);
                 toId = Integer.parseInt(cmdList[1]);
                 value = 20000;
                 // System.out.println(value.toString() + " "+  toId.toString());
-                paxos.comm.send("TIMY:"+value, 0, toId);
+                paxos.comm.send("TIMY:"+value, toId, toId);
             }
             else if (mainCmd.compareTo("") == 0){
                 continue;
