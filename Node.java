@@ -132,8 +132,9 @@ public class Node extends Thread {
 			// curPropPid++;
 			increPropPid();
 			debug(msg,level0);
-			this.isLeaderPhase = true;
-			prepare();
+			// this.isLeaderPhase = true;
+			// prepare();
+			startElection();
 		}
 	// void electLeader() throws IOException {
 		// 	debug("Contesting for Leader " + nodeId);
@@ -150,7 +151,7 @@ public class Node extends Thread {
 		this.mainStartTime = Instant.now();
 
 		// FIXME 
-		this.isPromised = false;
+		// this.isPromised = false;
 		// this.isAccepted = false;
 		this.isCompleted = false;
 	}
@@ -225,6 +226,17 @@ public class Node extends Thread {
 		}
 	}
 
+	void startElection() throws IOException  {
+		this.isLeaderPhase = true;
+		// this.curMax = this.nodeId;
+		this.valueAcc = null;
+		this.curMax = null;
+		this.isAccepted = false; 
+		this.isPromised = false;
+		this.curPromPid = -1;
+		prepare();
+	}
+
 	@Override
 	public void run() { 
 		debug("Inside Node run " + nodeId,level0);
@@ -241,19 +253,21 @@ public class Node extends Thread {
 					this.heartBeat();
 				}
 				
-				
 				if (!this.isLeaderPhase) {
 					// TO elect a leader at the very begining 
-					if(comm.isLeader(-1)){
+					if (comm.isLeader(-1)){
 						valueSend = this.nodeId.toString();
-						handleHeartBeatTimeout("NODE " + this.nodeId + " STARTING ELECTION");
+						// handleHeartBeatTimeout("NODE " + this.nodeId + " STARTING ELECTION");
+						debug("NODE " + this.nodeId + " STARTING ELECTION",level0);
+						startElection();
 					}
-					// If heartBeat timeouts
-					if (checkTimeout(this.heartBeatReceived, heartBeatTimeoutDuration)){
-						valueSend = nodeId.toString();
-						handleHeartBeatTimeout("HEARTBEAT TIMEOUT NODE " + this.nodeId + " STARTING ELECTION");
-					}	
+					// If heartBeat timeouts FIXME:
+					// if (checkTimeout(this.heartBeatReceived, heartBeatTimeoutDuration)){
+					// 	valueSend = nodeId.toString();
+					// 	// handleHeartBeatTimeout("HEARTBEAT TIMEOUT NODE " + this.nodeId + " STARTING ELECTION");
+					// }	
 				}
+
 				if (isPromiseWait){
 					if(checkTimeout(mainStartTime, mainTimeoutDuration) ||
 					(isPromiseMajority && checkTimeout(secondaryStartTime, secondaryTimeoutDuration))) {
@@ -305,14 +319,10 @@ public class Node extends Thread {
 				} 
 				else if ( mainCmd.compareTo("LEADERDEAD") == 0){
 					debug("Leader dead staring paxos",level0);
-					this.isLeaderPhase = true;
-					// this.curMax = this.nodeId;
-					this.valueAcc = null;
-					this.curMax = null;
-					this.isAccepted = false; 
 					valueSend = this.nodeId.toString();
 					sleep(100);
-					prepare();
+					startElection();
+					
 					
 				} 
 				else if (!this.isLeaderPhase && mainCmd.compareTo("CMDPREPARE") == 0){ // TODO: the condition
@@ -325,6 +335,8 @@ public class Node extends Thread {
 						
 						debug("CURRENT LEADER: " + comm.getLeader() + "WRITING TO LOG VALUE: " + valueSend + " nodeId :" + this.nodeId ,level0);
 						// TODO: Write in log 
+						comm.writeInlog(valueSend);
+						
 					}else{
 						comm.send(cmd, this.nodeId, comm.getLeader());
 					}
@@ -402,6 +414,7 @@ public class Node extends Thread {
 						isAcceptWait = false;
 						debug("CURRENT LEADER ELECTED : " + curMax,level0);
 						comm.setLeader(Integer.parseInt(curMax));
+						
 						this.isLeaderPhase = false;
 						this.heartBeatReceived = Instant.now();
 						//TODO: SEND TO ALL

@@ -1,4 +1,7 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -23,15 +26,17 @@ public class Communication {
     Map<Integer, DatagramSocket> sendingSocket;
     Map<Integer, DatagramSocket> receivingSocket;
 
-    Integer leader; 
-    // Boolean isLeaderPhase; 
+    PrintWriter logWriter;
+    Integer leader;
+    // Boolean isLeaderPhase;
 
     void debug(String str) {
         boolean a = true;
-        if(a) System.out.println(str);
+        if (a)
+            System.out.println(str);
     }
 
-    private Communication() {
+    private Communication() throws FileNotFoundException, UnsupportedEncodingException {
         nodesIp = new HashMap<>();
         sendingPort = new HashMap<>();
         sendingSocket = new HashMap<>();
@@ -39,6 +44,7 @@ public class Communication {
         receivingSocket = new HashMap<>();
         leader = -1;
 
+        this.logWriter = new PrintWriter("log","UTF-8");
     }
 
     public Integer getLeader(){         return this.leader;     }
@@ -52,8 +58,11 @@ public class Communication {
     // public void setisLeaderPhase(Boolean b){    this.isLeaderPhase= b; }
     public void resetLeader(){ this.leader = -1;}
 
-
-    public static Communication getInstance() {
+    public void writeInlog(String msg){
+            this.logWriter.println(msg);
+			this.logWriter.flush();
+    }
+    public static Communication getInstance() throws FileNotFoundException, UnsupportedEncodingException {
         if (comm == null)
             comm = new Communication();
         return comm;
