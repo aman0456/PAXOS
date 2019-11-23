@@ -75,7 +75,6 @@ public class Node extends Thread {
 		this.acceptCount = 0;
 		
 		writer = new PrintWriter("nodeLog/"+nodeId,"UTF-8");
-		
 	}
 
 	void debug(String str,Integer level0) {
