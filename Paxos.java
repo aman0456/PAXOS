@@ -1,5 +1,6 @@
 import java.net.InetAddress;
 import java.net.ServerSocket;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -16,6 +17,19 @@ public class Paxos {
     Paxos() throws FileNotFoundException, UnsupportedEncodingException {
         nodeList = new HashMap<>();
         this.comm = Communication.getInstance();
+        File dir = new File("nodeLog");
+		if (! dir.exists()){
+			dir.mkdir();
+        }else {
+            String[]entries = dir.list();
+            for(String s: entries){
+                File currentFile = new File(dir.getPath(),s);
+                currentFile.delete();
+            }
+            // dir.delete();
+            // dir.mkdir();
+        }
+        
     }
     Node addNode(InetAddress ip, Integer sendPort, Integer recPort) throws IOException {
         Node node = new Node(numNodes); // CHANGE: TODO:
@@ -37,7 +51,7 @@ public class Paxos {
         // s1.close();
         // s2.close();
         String cmdSet = ">> ";
-        System.out.println( "Enter the total number of Nodes: " );
+        System.out.println( "Enter the total number of Nodes: (Integer) " );
         System.out.print(cmdSet);
         int nn = inputReader.nextInt();
         ArrayList<Node> nodeList = new ArrayList<>();
@@ -50,18 +64,6 @@ public class Paxos {
             nodeList.get(i).start();
         }
 
-        
-        // paxos.comm.send("TIMY", 0, 2);
-        // paxos.comm.send("TIMY", 0, 3);
-        // paxos.comm.send("TIMY", 0, 4);
-
-        // paxos.comm.send("CMDPREPARE:50", 0, 1);
-        // paxos.comm.send("TIMY:", 0, 1);
-        // paxos.comm.send("CMDPREPARE:51", 0, 2);
-        // paxos.comm.send("CMDPREPARE:52", 0, 3);
-        // paxos.comm.send("CMDPREPARE:53", 0, 4);
-        // paxos.addNode(localIp, 7080);
-        
         String cmd ;
         String[] cmdList ; 
         String mainCmd;
@@ -81,18 +83,18 @@ public class Paxos {
                     while((paxos.comm.getLeader() == -1)){}
                     toId = paxos.comm.getLeader();
                     // toId = Integer.parseInt(cmdList[2]);
-                    paxos.comm.send("CMDPREPARE:"+value, 0, toId);
+                    paxos.comm.send("CMDPREPARE:"+value, toId, toId);
             }
             else if (mainCmd.compareTo("timeout") == 0){
                 value = Integer.parseInt(cmdList[1]);
                 toId = Integer.parseInt(cmdList[2]);
-                paxos.comm.send("TIMY:"+value, 0, toId);
+                paxos.comm.send("TIMY:"+value, toId, toId);
             }else if (mainCmd.compareTo("kill") == 0){
                 // value = Integer.parseInt(cmdList[1]);
                 toId = Integer.parseInt(cmdList[1]);
                 value = 20000;
                 // System.out.println(value.toString() + " "+  toId.toString());
-                paxos.comm.send("TIMY:"+value, 0, toId);
+                paxos.comm.send("TIMY:"+value, toId, toId);
             }
             else if (mainCmd.compareTo("") == 0){
                 continue;

@@ -75,7 +75,6 @@ public class Node extends Thread {
 		this.acceptCount = 0;
 		
 		writer = new PrintWriter("nodeLog/"+nodeId,"UTF-8");
-		
 	}
 
 	void debug(String str,Integer level0) {
@@ -258,7 +257,7 @@ public class Node extends Thread {
 						debug("NODE " + this.nodeId + " STARTING ELECTION",level0);
 						startElection();
 					}
-					// If heartBeat timeouts FIXME:
+					// If heartBeat timeouts 
 					// if (checkTimeout(this.heartBeatReceived, heartBeatTimeoutDuration)){
 					// 	valueSend = nodeId.toString();
 					// 	// handleHeartBeatTimeout("HEARTBEAT TIMEOUT NODE " + this.nodeId + " STARTING ELECTION");
@@ -307,10 +306,11 @@ public class Node extends Thread {
 				if (mainCmd.compareTo("TIMY") == 0) {
 					Integer seconds = Integer.parseInt(parList[1]);
 					debug("SLEEPING NOW :(",level0);
-					String dyingLeaderMsg = "LEADERDEAD";
-					comm.resetLeader();
-					comm.sendAll(dyingLeaderMsg, this.nodeId);
-					
+					if(this.nodeId == comm.getLeader()){
+						String dyingLeaderMsg = "LEADERDEAD";
+						comm.resetLeader();
+						comm.sendAll(dyingLeaderMsg, this.nodeId);
+					}
 					sleep(seconds*1000);
 					// 
 				} 
@@ -319,7 +319,6 @@ public class Node extends Thread {
 					valueSend = this.nodeId.toString();
 					sleep(100);
 					startElection();
-					
 					
 				} 
 				else if (!this.isLeaderPhase && mainCmd.compareTo("CMDPREPARE") == 0){ // 
@@ -330,7 +329,7 @@ public class Node extends Thread {
 					// prepare();
 					if(comm.isLeader(this.nodeId)){
 						
-						debug("CURRENT LEADER: " + comm.getLeader() + "WRITING TO LOG VALUE: " + valueSend + " nodeId :" + this.nodeId ,level0);
+						debug("CURRENT LEADER: " + comm.getLeader() + " WRITING TO LOG VALUE: " + valueSend + " nodeId :" + this.nodeId ,level0);
 						comm.writeInlog(valueSend);
 
 					}else{

@@ -1,4 +1,4 @@
-# Parallel-Programming-Project
+# Multi Paxos 
 CS751 Course Project
 
 ## How to run
@@ -6,4 +6,9 @@ CS751 Course Project
 2. Run java Paxos which will start a console
 3. Enter the number of nodes (say 20)
 4. You can see the log of each node in nodeLog directory
-5. The console can be used to enter kill commands like "kill 5" which will sleep the fifth node. The effects of this on other nodes can be seen using the node logs.
+5. The values sent by client are stored in a file "log" created in current directory.
+6. In the console you can enter the following commands: 
+    - kill \<nodeId\> 
+         * Kills the node with Id \<nodeId\>
+    - client \<value\>
+        * Is a request from client to accept his/her \<value\>
